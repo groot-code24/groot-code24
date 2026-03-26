@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mani Pal — AI/ML Engineer & Researcher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+[data-theme="dark"] {
+  --bg:        #0a0a0a;
+  --bg-card:   #111111;
+  --bg-hover:  #161616;
+  --border:    #222222;
+  --text:      #ededed;
+  --text-2:    #888888;
+  --text-3:    #555555;
+  --accent:    #5b9cf6;
+  --accent-bg: rgba(91,156,246,.08);
+  --green:     #4ade80;
+  --amber:     #fbbf24;
+}
+[data-theme="light"] {
+  --bg:        #fafafa;
+  --bg-card:   #ffffff;
+  --bg-hover:  #f4f4f5;
+  --border:    #e4e4e7;
+  --text:      #111111;
+  --text-2:    #52525b;
+  --text-3:    #a1a1aa;
+  --accent:    #2563eb;
+  --accent-bg: rgba(37,99,235,.07);
+  --green:     #16a34a;
+  --amber:     #d97706;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;font-size:15px;line-height:1.6;transition:background .25s,color .25s;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.container{max-width:760px;margin:0 auto;padding:0 24px}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid var(--border);transition:background .25s,border-color .25s}
+.nav-inner{max-width:760px;margin:0 auto;padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-size:14px;font-weight:600;letter-spacing:-.01em}
+.nav-right{display:flex;align-items:center;gap:24px}
+.nav-links{display:flex;gap:20px;list-style:none}
+.nav-links a{font-size:13px;color:var(--text-2);transition:color .15s}
+.nav-links a:hover{color:var(--text)}
+.theme-btn{width:34px;height:34px;border-radius:8px;background:var(--bg-card);border:1px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;transition:background .2s,border-color .2s}
+.theme-btn:hover{background:var(--bg-hover)}
+
+/* HERO */
+#hero{padding:80px 0 64px}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;color:var(--accent);background:var(--accent-bg);border:1px solid rgba(91,156,246,.2);padding:4px 10px;border-radius:99px;margin-bottom:24px;letter-spacing:.02em}
+.hero-badge::before{content:'●';font-size:8px;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+h1{font-family:'Instrument Serif',Georgia,serif;font-size:clamp(36px,6vw,52px);font-weight:400;line-height:1.12;letter-spacing:-.02em;color:var(--text);margin-bottom:20px}
+h1 em{font-style:italic;color:var(--accent)}
+.hero-desc{font-size:16px;line-height:1.75;color:var(--text-2);max-width:56ch;margin-bottom:32px}
+.hero-links{display:flex;flex-wrap:wrap;gap:10px}
+.hero-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:500;padding:7px 14px;border-radius:8px;border:1px solid var(--border);background:var(--bg-card);color:var(--text-2);transition:all .15s}
+.hero-link:hover{color:var(--text);border-color:var(--text-3);background:var(--bg-hover)}
+.hero-link svg{width:14px;height:14px;flex-shrink:0}
+
+/* NUMBERS */
+#numbers{padding:32px 0 48px}
+.numbers-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.num-card{background:var(--bg-card);padding:24px 20px;text-align:center;transition:background .2s}
+.num-card:hover{background:var(--bg-hover)}
+.num-val{font-family:'Instrument Serif',serif;font-size:28px;font-weight:400;color:var(--text);display:block;line-height:1;margin-bottom:6px}
+.num-val em{font-style:normal;color:var(--accent)}
+.num-label{font-size:11px;font-weight:500;color:var(--text-3);text-transform:uppercase;letter-spacing:.06em;line-height:1.4}
+
+/* SECTIONS */
+.section{padding:48px 0;border-top:1px solid var(--border)}
+.section-label{font-size:11px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:24px}
+h2{font-family:'Instrument Serif',serif;font-size:28px;font-weight:400;letter-spacing:-.015em;margin-bottom:20px;line-height:1.2}
+
+/* ABOUT */
+.about-text{font-size:15px;line-height:1.8;color:var(--text-2);margin-bottom:12px}
+.about-text strong{color:var(--text);font-weight:500}
+.skills-section{margin-top:32px;display:flex;flex-direction:column;gap:16px}
+.skill-row{display:flex;gap:12px;align-items:flex-start}
+.skill-cat{font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--text-3);text-transform:uppercase;min-width:100px;padding-top:3px;flex-shrink:0}
+.skill-pills{display:flex;flex-wrap:wrap;gap:6px}
+.pill{font-size:12px;font-weight:400;padding:3px 10px;border-radius:99px;border:1px solid var(--border);color:var(--text-2);background:var(--bg-card);transition:all .15s;cursor:default}
+.pill:hover{color:var(--text);border-color:var(--text-3)}
+.pill.hi{color:var(--accent);border-color:rgba(91,156,246,.3);background:var(--accent-bg)}
+
+/* PROJECTS */
+.project-list{display:flex;flex-direction:column;gap:2px}
+.project{padding:20px;border-radius:10px;border:1px solid transparent;transition:all .2s}
+.project:hover{background:var(--bg-card);border-color:var(--border)}
+.project-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:8px}
+.project-name{font-size:15px;font-weight:600;color:var(--text);line-height:1.3}
+.project-year{font-size:12px;color:var(--text-3);white-space:nowrap;flex-shrink:0;padding-top:2px}
+.project-meta{font-size:12px;font-weight:500;color:var(--accent);margin-bottom:6px}
+.project-desc{font-size:13.5px;line-height:1.7;color:var(--text-2);margin-bottom:12px}
+.project-chips{display:flex;flex-wrap:wrap;gap:5px}
+.chip{font-size:11px;font-weight:500;padding:2px 8px;border-radius:4px;background:var(--bg-hover);color:var(--text-3)}
+.metric-row{display:flex;flex-wrap:wrap;gap:16px;margin-bottom:10px}
+.metric{font-size:12px;color:var(--text-2)}
+.metric strong{color:var(--green);font-weight:600}
+
+/* RESEARCH */
+.research-list{display:flex;flex-direction:column;gap:2px}
+.paper{padding:20px;border-radius:10px;border:1px solid transparent;transition:all .2s}
+.paper:hover{background:var(--bg-card);border-color:var(--border)}
+.paper-title{font-family:'Instrument Serif',serif;font-size:17px;font-style:italic;color:var(--text);line-height:1.4;margin-bottom:8px}
+.paper-tag{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--amber);margin-bottom:6px}
+.paper-abstract{font-size:13.5px;line-height:1.75;color:var(--text-2);margin-bottom:12px}
+.paper-findings{display:flex;flex-wrap:wrap;gap:6px}
+.finding-chip{font-size:12px;font-weight:500;padding:3px 10px;border-radius:6px;background:rgba(74,222,128,.07);color:var(--green);border:1px solid rgba(74,222,128,.2)}
+
+/* EXPERIENCE */
+.exp-list{display:flex;flex-direction:column;gap:2px}
+.exp{padding:20px;border-radius:10px;border:1px solid transparent;transition:all .2s}
+.exp:hover{background:var(--bg-card);border-color:var(--border)}
+.exp-header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:4px}
+.exp-company{font-size:15px;font-weight:600;color:var(--text)}
+.exp-period{font-size:12px;color:var(--text-3);white-space:nowrap;padding-top:2px}
+.exp-role{font-size:13px;font-weight:500;color:var(--accent);margin-bottom:12px}
+.exp-bullets{list-style:none;display:flex;flex-direction:column;gap:6px}
+.exp-bullets li{font-size:13.5px;line-height:1.7;color:var(--text-2);padding-left:16px;position:relative}
+.exp-bullets li::before{content:'–';position:absolute;left:0;color:var(--text-3)}
+.exp-bullets li strong{color:var(--text);font-weight:500}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.contact-item{display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;transition:all .2s}
+.contact-item:hover{border-color:var(--accent);background:var(--accent-bg);transform:translateY(-1px)}
+.contact-icon{width:32px;height:32px;border-radius:8px;background:var(--bg-hover);display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--text-2);flex-shrink:0;font-style:normal}
+.contact-label{font-size:11px;font-weight:500;color:var(--text-3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+.contact-val{font-size:13px;font-weight:500;color:var(--text)}
+
+/* FOOTER */
+footer{padding:32px 0;border-top:1px solid var(--border);margin-top:48px}
+.footer-inner{max-width:760px;margin:0 auto;padding:0 24px;display:flex;justify-content:space-between;align-items:center}
+.footer-inner p{font-size:12px;color:var(--text-3)}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  h1{font-size:34px}
+  .numbers-grid{grid-template-columns:repeat(2,1fr)}
+  .contact-grid{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .skill-row{flex-direction:column;gap:6px}
+  .skill-cat{min-width:unset}
+  .footer-inner{flex-direction:column;gap:6px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <span class="nav-logo">Mani Pal</span>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="theme-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">
+        <span id="themeIcon">☀️</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-badge">Available for opportunities</div>
+    <h1>AI/ML Engineer<br/>&amp; <em>Researcher</em></h1>
+    <p class="hero-desc">
+      Self-taught engineer with 4+ years building LLM systems from the ground up —
+      CUDA kernels, model training, alignment research, and production infrastructure.
+      Delhi, India · Open to remote &amp; relocation.
+    </p>
+    <div class="hero-links">
+      <a href="mailto:palmani2410@gmail.com" class="hero-link">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="14" height="10" rx="1.5"/><path d="M1 4l7 5 7-5"/></svg>
+        palmani2410@gmail.com
+      </a>
+      <a href="https://github.com/justbytecode" target="_blank" rel="noopener" class="hero-link">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38v-1.34c-2.23.48-2.7-1.07-2.7-1.07-.36-.93-.89-1.17-.89-1.17-.73-.5.05-.49.05-.49.8.06 1.23.82 1.23.82.71 1.22 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.65 7.65 0 0 1 8 4.07c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.19c0 .21.15.46.55.38C13.71 14.53 16 11.54 16 8c0-4.42-3.58-8-8-8z"/></svg>
+        GitHub
+      </a>
+      <a href="https://linkedin.com/in/mani-pal-68b570163" target="_blank" rel="noopener" class="hero-link">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M0 1.15C0 .52.53 0 1.19 0h13.62C15.47 0 16 .52 16 1.15v13.7c0 .63-.53 1.15-1.19 1.15H1.19C.53 16 0 15.48 0 14.85V1.15zM4.79 13.5V6.17H2.38V13.5h2.41zM3.58 5.14c.84 0 1.36-.56 1.36-1.25-.02-.71-.52-1.25-1.34-1.25S2.22 3.18 2.2 3.89c0 .69.52 1.25 1.34 1.25h.04zm3.28 8.36V9.47c0-.22.02-.43.08-.59.17-.43.57-.88 1.24-.88.87 0 1.22.66 1.22 1.64v3.86h2.41V9.36c0-2.23-1.19-3.27-2.77-3.27-1.3 0-1.87.72-2.18 1.21V6.17H4.44c.03.68 0 7.33 0 7.33h2.42z"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://huggingface.co/justbytecode" target="_blank" rel="noopener" class="hero-link">
+        🤗 Hugging Face
+      </a>
+    </div>
+  </section>
+
+  <!-- NUMBERS -->
+  <section id="numbers" class="reveal">
+    <div class="numbers-grid">
+      <div class="num-card">
+        <span class="num-val">700<em>M</em></span>
+        <span class="num-label">Params trained from scratch</span>
+      </div>
+      <div class="num-card">
+        <span class="num-val">2.4<em>×</em></span>
+        <span class="num-label">CPU inference speedup</span>
+      </div>
+      <div class="num-card">
+        <span class="num-val">2.1<em>×</em></span>
+        <span class="num-label">GPU throughput FlashAttn-2</span>
+      </div>
+      <div class="num-card">
+        <span class="num-val">4<em>+</em></span>
+        <span class="num-label">Years production ML</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="section reveal">
+    <p class="section-label">About</p>
+    <p class="about-text">
+      I'm a self-taught AI/ML engineer with deep hands-on experience across the full spectrum of
+      modern LLM development — from writing <strong>CUDA kernels</strong> and training models from scratch,
+      to <strong>alignment research</strong> (RLHF, DPO, GRPO) and publishing independent mechanistic interpretability work.
+    </p>
+    <p class="about-text">
+      I think the most interesting engineering happens at the boundary where research meets production.
+      My work reflects that: I don't just implement algorithms — I profile them, optimise them, and ship them.
+    </p>
+    <div class="skills-section">
+      <div class="skill-row">
+        <span class="skill-cat">Core ML</span>
+        <div class="skill-pills">
+          <span class="pill hi">PyTorch</span><span class="pill hi">CUDA C++</span>
+          <span class="pill hi">Triton</span><span class="pill">JAX / Flax</span><span class="pill">TensorFlow</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <span class="skill-cat">LLM Infra</span>
+        <div class="skill-pills">
+          <span class="pill hi">FlashAttention-2</span><span class="pill hi">vLLM</span>
+          <span class="pill">SGLang</span><span class="pill">TensorRT-LLM</span>
+          <span class="pill">PagedAttention</span><span class="pill">KV-Cache</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <span class="skill-cat">Training</span>
+        <div class="skill-pills">
+          <span class="pill hi">FSDP</span><span class="pill hi">DeepSpeed ZeRO</span>
+          <span class="pill">Megatron-LM</span><span class="pill">LoRA / QLoRA</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <span class="skill-cat">Alignment</span>
+        <div class="skill-pills">
+          <span class="pill hi">RLHF</span><span class="pill hi">GRPO</span>
+          <span class="pill hi">DPO</span><span class="pill">PPO</span>
+          <span class="pill">Reward Modeling</span><span class="pill">SFT</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <span class="skill-cat">Architectures</span>
+        <div class="skill-pills">
+          <span class="pill hi">Transformer</span><span class="pill hi">Mamba-2 / SSM</span>
+          <span class="pill hi">Sparse MoE</span><span class="pill">RWKV</span><span class="pill">RoPE / YaRN</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <span class="skill-cat">Infra</span>
+        <div class="skill-pills">
+          <span class="pill">Python</span><span class="pill">Rust</span><span class="pill">C++</span>
+          <span class="pill">AWS</span><span class="pill">Kubernetes</span>
+          <span class="pill">FastAPI</span><span class="pill">Kafka</span><span class="pill">Redis</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="section reveal">
+    <p class="section-label">Projects</p>
+    <div class="project-list">
+
+      <div class="project">
+        <div class="project-top">
+          <span class="project-name">Project Chimera — 700M Hybrid LLM</span>
+          <span class="project-year">2024–25</span>
+        </div>
+        <p class="project-meta">Mamba-2 / Transformer · Trained from scratch</p>
+        <p class="project-desc">
+          Designed and pre-trained a 700M-parameter hybrid Mamba-2/Transformer model from scratch with custom BPE tokenizer.
+          Applied Chinchilla-optimal data scheduling, GRPO chain-of-thought fine-tuning, and DPO safety alignment.
+          INT4 GGUF quantized; weights published on Hugging Face Hub.
+        </p>
+        <div class="metric-row">
+          <span class="metric"><strong>4.2 GB</strong> INT4 GGUF footprint</span>
+          <span class="metric"><strong>&lt;3s</strong> first-token on CPU</span>
+          <span class="metric"><strong>GRPO + DPO</strong> aligned</span>
+        </div>
+        <div class="project-chips">
+          <span class="chip">PyTorch</span><span class="chip">Mamba-2</span>
+          <span class="chip">Triton</span><span class="chip">DeepSpeed</span>
+          <span class="chip">llama.cpp</span><span class="chip">W&amp;B</span>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="project-top">
+          <span class="project-name">FlashAttention-2 CUDA Kernel</span>
+          <span class="project-year">2025</span>
+        </div>
+        <p class="project-meta">Custom GPU Attention Engine</p>
+        <p class="project-desc">
+          Implemented tiled IO-aware FlashAttention-2 from scratch in CUDA C++, fusing QKV matmul, softmax, and
+          weighted-sum into a single SRAM-resident kernel pass. Reduced HBM bandwidth from O(N²) to O(N).
+          Packaged as a pip-installable PyTorch C++ extension.
+        </p>
+        <div class="metric-row">
+          <span class="metric"><strong>2.1×</strong> throughput vs PyTorch baseline (A100, seqlen 4096)</span>
+          <span class="metric"><strong>O(N)</strong> HBM bandwidth</span>
+        </div>
+        <div class="project-chips">
+          <span class="chip">CUDA C++</span><span class="chip">Triton</span>
+          <span class="chip">PyTorch</span><span class="chip">Nsight Compute</span>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="project-top">
+          <span class="project-name">Speculative Decoding Inference Engine</span>
+          <span class="project-year">2025</span>
+        </div>
+        <p class="project-meta">OpenAI-Compatible Inference Server</p>
+        <p class="project-desc">
+          Draft-verifier runtime pairing Qwen2.5-0.5B with Qwen2.5-3B using temperature-corrected rejection sampling.
+          Adaptive gamma scheduling adjusts lookahead window per-step on acceptance rate.
+          Served via OpenAI-compatible FastAPI endpoint.
+        </p>
+        <div class="metric-row">
+          <span class="metric"><strong>2.4×</strong> mean tokens/sec on CPU</span>
+          <span class="metric"><strong>Identical</strong> output distribution</span>
+        </div>
+        <div class="project-chips">
+          <span class="chip">Python</span><span class="chip">PyTorch</span>
+          <span class="chip">llama.cpp</span><span class="chip">FastAPI</span>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="project-top">
+          <span class="project-name">Sparse MoE Scaling Experiment</span>
+          <span class="project-year">2025</span>
+        </div>
+        <p class="project-meta">Mixture-of-Experts Architecture from Scratch</p>
+        <p class="project-desc">
+          Sparse top-k MoE layer (k=2, 8 experts) with z-loss load-balancing via Switch Transformer formulation.
+          Characterised expert utilization collapse via routing entropy curves; identified z-loss thresholds.
+        </p>
+        <div class="metric-row">
+          <span class="metric"><strong>2.3×</strong> throughput vs dense at matched FLOP budget</span>
+          <span class="metric"><strong>125M</strong> active params @ 1B compute</span>
+        </div>
+        <div class="project-chips">
+          <span class="chip">PyTorch</span><span class="chip">FSDP</span>
+          <span class="chip">Triton</span><span class="chip">W&amp;B</span>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="project-top">
+          <span class="project-name">VAANI — Offline Hindi Voice Assistant</span>
+          <span class="project-year">2024</span>
+        </div>
+        <p class="project-meta">Hindi-First · Fully Offline Pipeline</p>
+        <p class="project-desc">
+          Fully offline voice pipeline: openWakeWord → Whisper ASR → Qwen2.5-3B-Instruct Q4_K_M (128K context) → Piper TTS.
+          Fine-tuned XTTS v2 on AI4Bharat Hindi corpus. 8-layer modular plugin architecture.
+        </p>
+        <div class="metric-row">
+          <span class="metric"><strong>&lt;800ms</strong> end-to-end latency on CPU</span>
+          <span class="metric"><strong>Zero</strong> internet dependency</span>
+        </div>
+        <div class="project-chips">
+          <span class="chip">Python</span><span class="chip">Whisper</span>
+          <span class="chip">XTTS v2</span><span class="chip">Qwen2.5</span><span class="chip">Piper TTS</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- RESEARCH -->
+  <section id="research" class="section reveal">
+    <p class="section-label">Research</p>
+    <div class="research-list">
+
+      <div class="paper">
+        <p class="paper-tag">Mechanistic Interpretability · 2025</p>
+        <p class="paper-title">Mechanistic Interpretability of Attention Heads in Sparse MoE Transformers</p>
+        <p class="paper-abstract">
+          Reverse-engineered internal circuits in a 125M-parameter sparse MoE LM using activation patching,
+          attention-head ablations, and logit-lens projections. Identified 7 functionally distinct head archetypes.
+          Found 3.8× more representable features than available neurons, confirming the superposition hypothesis.
+          Open-sourced a reusable interpretability toolkit compatible with any HuggingFace causal LM.
+        </p>
+        <div class="paper-findings">
+          <span class="finding-chip">3.8× feature superposition</span>
+          <span class="finding-chip">7 head archetypes</span>
+          <span class="finding-chip">500+ sequences analysed</span>
+          <span class="finding-chip">Open-source toolkit</span>
+        </div>
+      </div>
+
+      <div class="paper">
+        <p class="paper-tag">arXiv Preprint · 2025</p>
+        <p class="paper-title">Grokking Dynamics in Modular Arithmetic: Phase Transitions and Delayed Generalization</p>
+        <p class="paper-abstract">
+          Extended the grokking phenomenon across modular arithmetic, sparse parity, and group composition.
+          Derived empirical scaling law Tg ∝ D⁻⁰·⁷⁴ λ⁻⁰·⁵¹ and verified a circuit-formation hypothesis via
+          frequency-domain neuron analysis — 8.4% accuracy drop per frequency-selective neuron ablated.
+          Full reproducibility kit on GitHub &amp; Hugging Face.
+        </p>
+        <div class="paper-findings">
+          <span class="finding-chip">ρ = 0.91 Pearson correlation</span>
+          <span class="finding-chip">Tg ∝ D⁻⁰·⁷⁴ λ⁻⁰·⁵¹</span>
+          <span class="finding-chip">8.4% drop / neuron ablated</span>
+          <span class="finding-chip">180 experimental runs</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" class="section reveal">
+    <p class="section-label">Experience</p>
+    <div class="exp-list">
+
+      <div class="exp">
+        <div class="exp-header">
+          <span class="exp-company">RecurX</span>
+          <span class="exp-period">Jan 2024 – Present</span>
+        </div>
+        <p class="exp-role">Founding Engineer &amp; Technical Lead · Delhi, India</p>
+        <ul class="exp-bullets">
+          <li>Architected cross-chain payment infrastructure across Ethereum and Solana; <strong>sub-200ms transaction latency</strong>, 95% smart contract test coverage.</li>
+          <li>Reduced p95 API latency 280ms → 182ms (<strong>35% improvement</strong>) via Redis caching and query optimisation.</li>
+          <li>CI/CD pipeline cutting release cycles from 45 min → <strong>8 min</strong> with zero-downtime blue-green deployments.</li>
+          <li>Horizontally-scalable microservices supporting <strong>5,000+ concurrent WebSocket clients</strong>.</li>
+        </ul>
+      </div>
+
+      <div class="exp">
+        <div class="exp-header">
+          <span class="exp-company">Independent Consultant</span>
+          <span class="exp-period">Jan 2021 – Dec 2023</span>
+        </div>
+        <p class="exp-role">Full-Stack &amp; AI Software Engineer · Remote</p>
+        <ul class="exp-bullets">
+          <li>Delivered <strong>15+ production applications</strong> across SaaS, AI tooling, and Web3 domains.</li>
+          <li>Production RAG pipeline reducing attorney research time by <strong>65%</strong> via hybrid BM25 + cross-encoder reranking.</li>
+          <li>Fine-tuned <strong>Mistral-7B and Llama-2 via QLoRA</strong> on AWS SageMaker; 85%+ test coverage.</li>
+          <li>Database optimisation achieving <strong>10× query throughput</strong> on high-cardinality operations.</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section reveal">
+    <p class="section-label">Contact</p>
+    <h2 style="margin-bottom:8px">Let's work together</h2>
+    <p class="about-text" style="margin-bottom:24px">Open to senior ML engineering roles, research collaborations, and consulting.</p>
+    <div class="contact-grid">
+      <a href="mailto:palmani2410@gmail.com" class="contact-item">
+        <div class="contact-icon">✉</div>
+        <div>
+          <p class="contact-label">Email</p>
+          <p class="contact-val">palmani2410@gmail.com</p>
+        </div>
+      </a>
+      <a href="tel:+917380626997" class="contact-item">
+        <div class="contact-icon">☏</div>
+        <div>
+          <p class="contact-label">Phone</p>
+          <p class="contact-val">+91 73806 26997</p>
+        </div>
+      </a>
+      <a href="https://linkedin.com/in/mani-pal-68b570163" target="_blank" rel="noopener" class="contact-item">
+        <div class="contact-icon">in</div>
+        <div>
+          <p class="contact-label">LinkedIn</p>
+          <p class="contact-val">mani-pal-68b570163</p>
+        </div>
+      </a>
+      <a href="https://github.com/justbytecode" target="_blank" rel="noopener" class="contact-item">
+        <div class="contact-icon">gh</div>
+        <div>
+          <p class="contact-label">GitHub (ML Research)</p>
+          <p class="contact-val">github.com/justbytecode</p>
+        </div>
+      </a>
+      <a href="https://github.com/groot-code24" target="_blank" rel="noopener" class="contact-item">
+        <div class="contact-icon">gh</div>
+        <div>
+          <p class="contact-label">GitHub (Engineering)</p>
+          <p class="contact-val">github.com/groot-code24</p>
+        </div>
+      </a>
+      <a href="https://huggingface.co/justbytecode" target="_blank" rel="noopener" class="contact-item">
+        <div class="contact-icon">🤗</div>
+        <div>
+          <p class="contact-label">Hugging Face</p>
+          <p class="contact-val">hf.co/justbytecode</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <p>© 2025 Mani Pal</p>
+    <p>Delhi, India · Open to Remote &amp; Relocation</p>
+  </div>
+</footer>
+
+<script>
+// Theme toggle
+const html = document.documentElement;
+const btn  = document.getElementById('themeBtn');
+const icon = document.getElementById('themeIcon');
+function applyTheme(t) {
+  html.setAttribute('data-theme', t);
+  icon.textContent = t === 'dark' ? '☀️' : '🌙';
+  try { localStorage.setItem('theme', t); } catch(e){}
+}
+btn.addEventListener('click', () => {
+  applyTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+});
+try { const s = localStorage.getItem('theme'); if (s) applyTheme(s); } catch(e){}
+
+// Scroll reveal
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+}, { threshold: .08, rootMargin: '0px 0px -48px 0px' });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// Stagger
+document.querySelectorAll('.project-list .project, .contact-grid .contact-item').forEach((el, i) => {
+  el.style.transitionDelay = (i * 0.06) + 's';
+});
+</script>
+</body>
+</html>
