@@ -177,6 +177,241 @@ h2 {
   font-size: 15px;
   color: #444;
   line-height: 1.7;
+  margin-bottom: 12px;
+}
+
+/* PAPER LINKS ROW */
+.paper-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.paper-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  font-family: 'Lora', Georgia, serif;
+  font-style: italic;
+  color: #1a5cac;
+  text-decoration: none;
+  border: 1px solid #d0dff5;
+  border-radius: 3px;
+  padding: 4px 10px;
+  transition: background .15s, border-color .15s;
+}
+.paper-link:hover {
+  background: #f0f5ff;
+  border-color: #1a5cac;
+}
+
+/* READ & LEARN TOGGLE */
+.read-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-family: 'Lora', Georgia, serif;
+  font-style: italic;
+  color: #1a5cac;
+  cursor: pointer;
+  background: none;
+  border: 1px solid #d0dff5;
+  border-radius: 3px;
+  padding: 4px 10px;
+  transition: background .15s, border-color .15s;
+  user-select: none;
+}
+.read-toggle:hover {
+  background: #f0f5ff;
+  border-color: #1a5cac;
+}
+.read-toggle .arrow {
+  display: inline-block;
+  font-style: normal;
+  transition: transform .2s ease;
+  line-height: 1;
+}
+.read-toggle.open .arrow {
+  transform: rotate(90deg);
+}
+
+/* LEARN PANEL */
+.learn-panel {
+  display: none;
+  margin-top: 18px;
+  background: #f8f9fc;
+  border: 1px solid #e6eaf3;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.learn-panel.open { display: block; }
+
+.learn-tabs {
+  display: flex;
+  border-bottom: 1px solid #e6eaf3;
+  background: #f0f2f8;
+}
+.learn-tab {
+  font-size: 12px;
+  font-family: 'Lora', Georgia, serif;
+  font-style: italic;
+  letter-spacing: .03em;
+  color: #888;
+  padding: 8px 14px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color .15s;
+  user-select: none;
+}
+.learn-tab.active {
+  color: #1a1a1a;
+  border-bottom-color: #1a5cac;
+  background: #f8f9fc;
+}
+
+.learn-content { display: none; padding: 18px 20px; }
+.learn-content.active { display: block; }
+
+/* OVERVIEW */
+.overview-abstract {
+  font-size: 14.5px;
+  color: #333;
+  line-height: 1.75;
+  margin-bottom: 16px;
+}
+.overview-badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+.badge {
+  font-size: 12px;
+  font-style: italic;
+  color: #555;
+  background: #e8ecf6;
+  border-radius: 2px;
+  padding: 3px 8px;
+}
+.badge.green { background: #e6f4ec; color: #2a6b3e; }
+.badge.red { background: #fdf0f0; color: #8b2020; }
+.badge.blue { background: #e8f0fc; color: #1a4a8c; }
+
+/* FINDINGS LIST */
+.finding {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e8eaf2;
+}
+.finding:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.finding-num {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  background: #1a5cac;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 11px;
+  font-style: normal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3px;
+}
+.finding-body {}
+.finding-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 3px;
+}
+.finding-desc {
+  font-size: 13.5px;
+  color: #555;
+  line-height: 1.65;
+}
+.finding-stat {
+  display: inline-block;
+  font-style: italic;
+  color: #1a5cac;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+/* METHODS TABLE */
+.methods-table {
+  width: 100%;
+  font-size: 13px;
+  border-collapse: collapse;
+  margin-top: 4px;
+}
+.methods-table th {
+  text-align: left;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: #999;
+  padding: 6px 8px 6px 0;
+  border-bottom: 1px solid #e0e3ed;
+}
+.methods-table td {
+  padding: 7px 8px 7px 0;
+  color: #444;
+  border-bottom: 1px solid #f0f2f8;
+  vertical-align: top;
+}
+.methods-table tr:last-child td { border-bottom: none; }
+.methods-table td:first-child { color: #888; font-style: italic; font-size: 12.5px; white-space: nowrap; padding-right: 14px; }
+
+/* RESULTS TABLE */
+.results-table {
+  width: 100%;
+  font-size: 13px;
+  border-collapse: collapse;
+  margin-bottom: 14px;
+}
+.results-table th {
+  text-align: left;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: #999;
+  padding: 6px 8px 6px 0;
+  border-bottom: 1px solid #e0e3ed;
+}
+.results-table td {
+  padding: 7px 8px 7px 0;
+  color: #444;
+  border-bottom: 1px solid #f0f2f8;
+}
+.results-table tr:last-child td { border-bottom: none; }
+.tick { color: #2a7a45; font-style: normal; }
+.cross { color: #b22222; font-style: normal; }
+.mono { font-family: 'Courier New', monospace; font-size: 12px; }
+
+/* GLOSSARY */
+.glossary-item {
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #e8eaf2;
+}
+.glossary-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.glossary-term {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 3px;
+}
+.glossary-def {
+  font-size: 13.5px;
+  color: #555;
+  line-height: 1.65;
 }
 
 /* EXPERIENCE */
@@ -218,6 +453,7 @@ footer {
   .stat-item { width: 100%; }
   .skills-row { flex-direction: column; gap: 2px; }
   .skills-key { min-width: unset; }
+  .paper-links { flex-direction: column; }
 }
 </style>
 </head>
@@ -286,7 +522,7 @@ footer {
   <div class="project">
     <div class="item-header">
       <span class="item-name">Project Chimera — 700M Hybrid LLM</span>
-      <span class="item-year">2024–25</span>
+      <span class="item-year">2025–26</span>
     </div>
     <p class="item-sub">Mamba-2 / Transformer hybrid · trained from scratch</p>
     <p class="item-desc">Designed and pre-trained a 700M-parameter hybrid Mamba-2/Transformer model from scratch with a custom BPE tokenizer. Applied Chinchilla-optimal data scheduling, GRPO chain-of-thought fine-tuning, and DPO safety alignment. INT4 GGUF quantized; weights published on Hugging Face Hub.</p>
@@ -296,7 +532,7 @@ footer {
   <div class="project">
     <div class="item-header">
       <span class="item-name">FlashAttention-2 CUDA Kernel</span>
-      <span class="item-year">2025</span>
+      <span class="item-year">2026</span>
     </div>
     <p class="item-sub">Custom GPU attention engine</p>
     <p class="item-desc">Implemented tiled IO-aware FlashAttention-2 from scratch in CUDA C++, fusing QKV matmul, softmax, and weighted-sum into a single SRAM-resident kernel pass. Reduced HBM bandwidth from O(N²) to O(N). Packaged as a pip-installable PyTorch C++ extension.</p>
@@ -316,7 +552,7 @@ footer {
   <div class="project">
     <div class="item-header">
       <span class="item-name">Sparse MoE Scaling Experiment</span>
-      <span class="item-year">2025</span>
+      <span class="item-year">2026</span>
     </div>
     <p class="item-sub">Mixture-of-Experts architecture from scratch</p>
     <p class="item-desc">Sparse top-k MoE layer (k=2, 8 experts) with z-loss load-balancing via Switch Transformer formulation. Characterised expert utilization collapse via routing entropy curves; identified z-loss thresholds that prevent collapse without degrading performance.</p>
@@ -326,7 +562,7 @@ footer {
   <div class="project">
     <div class="item-header">
       <span class="item-name">VAANI — Offline Hindi Voice Assistant</span>
-      <span class="item-year">2024</span>
+      <span class="item-year">2026</span>
     </div>
     <p class="item-sub">Hindi-first · fully offline pipeline</p>
     <p class="item-desc">Fully offline voice pipeline: openWakeWord → Whisper ASR → Qwen2.5-3B-Instruct Q4_K_M (128K context) → Piper TTS. Fine-tuned XTTS v2 on AI4Bharat Hindi corpus. 8-layer modular plugin architecture.</p>
@@ -334,20 +570,282 @@ footer {
   </div>
 </section>
 
+<!-- ===================== RESEARCH ===================== -->
 <section id="research">
   <h2>Research</h2>
 
+  <!-- PAPER 1: Grokking Beyond Addition -->
+  <div class="paper">
+    <p class="paper-title">Grokking Beyond Addition: Circuit-Level Analysis of Algebraic Learning in Transformers</p>
+    <p class="paper-venue">Independent research · March 2026</p>
+    <p class="paper-abstract">
+      Extends the grokking phenomenon from modular addition to eight algebraic operations — four abelian fields and four non-abelian groups (S₃, D₅, A₄, S₄). Discovers a clean capacity-dependent generalisation boundary: all abelian tasks grok to 100% test accuracy at d<sub>model</sub>=64; all non-abelian tasks memorise but never generalise. Peter–Weyl analysis identifies correct dominant irreps even in non-grokked models, showing circuit formation precedes successful grokking. CKA reveals a shared representational substrate across all eight operations.
+    </p>
+
+    <div class="paper-links">
+      <a class="paper-link" href="https://github.com/groot-code24/Grokking-Circuit-Level-Analysis-of-Algebraic-Learning-in-Transformers" target="_blank">
+        ↗ GitHub &amp; Code
+      </a>
+      
+      <button class="read-toggle" id="toggle-grokking" onclick="toggleLearn('grokking', this)">
+        <span class="arrow">▶</span> Read &amp; Learn
+      </button>
+    </div>
+
+    <!-- LEARN PANEL -->
+    <div class="learn-panel" id="panel-grokking">
+      <div class="learn-tabs">
+        <div class="learn-tab active" onclick="switchTab('grokking', 'overview', this)">Overview</div>
+        <div class="learn-tab" onclick="switchTab('grokking', 'findings', this)">Key Findings</div>
+        <div class="learn-tab" onclick="switchTab('grokking', 'methods', this)">Methods</div>
+        <div class="learn-tab" onclick="switchTab('grokking', 'results', this)">Results</div>
+        <div class="learn-tab" onclick="switchTab('grokking', 'glossary', this)">Glossary</div>
+      </div>
+
+      <!-- OVERVIEW -->
+      <div class="learn-content active" id="grokking-overview">
+        <p class="overview-abstract">
+          <strong>What is grokking?</strong> Small neural networks trained on structured tasks like modular arithmetic often achieve 100% training accuracy quickly, then sit at near-zero test accuracy for hundreds or thousands of epochs — before suddenly generalising to perfect test accuracy. This delayed generalisation is called <em>grokking</em>.
+        </p>
+        <p class="overview-abstract">
+          Prior work (Nanda et al., 2023) explained the circuit behind modular <em>addition</em>. This paper asks: does grokking happen for other algebraic operations? And what determines whether a model can generalise at all?
+        </p>
+        <p class="overview-abstract">
+          The answer is surprisingly clean: at d<sub>model</sub>=64, <strong>all abelian (commutative) tasks grok; all non-abelian (non-commutative) tasks don't</strong> — not because of data size or training time, but because the model simply lacks the embedding dimensions to represent the required algebraic structure.
+        </p>
+        <div class="overview-badge-row">
+          <span class="badge blue">1-layer transformer</span>
+          <span class="badge blue">d_model = 64</span>
+          <span class="badge blue">8 algebraic tasks</span>
+          <span class="badge green">Abelian → grokked ✓</span>
+          <span class="badge red">Non-abelian → memorised only ✗</span>
+          <span class="badge blue">Free T4 GPU · ~3 hrs</span>
+        </div>
+      </div>
+
+      <!-- KEY FINDINGS -->
+      <div class="learn-content" id="grokking-findings">
+
+        <div class="finding">
+          <div class="finding-num">1</div>
+          <div class="finding-body">
+            <div class="finding-title">Abelian / Non-abelian grokking boundary</div>
+            <div class="finding-desc">All four abelian operations (addition, subtraction, multiplication, ring addition) grokked to 100% test accuracy. All four non-abelian groups (S₃, D₅, A₄, S₄) memorised perfectly but never generalised — test accuracy stayed below 25%. Same model, same epoch budget, same training accuracy.</div>
+            <span class="finding-stat">100% grok rate (abelian) vs 0% grok rate (non-abelian)</span>
+          </div>
+        </div>
+
+        <div class="finding">
+          <div class="finding-num">2</div>
+          <div class="finding-body">
+            <div class="finding-title">Discrete-log hypothesis — geometric evidence</div>
+            <div class="finding-desc">Multiplication mod p reduces to addition in the discrete-log domain. Re-indexing the embedding matrix by dlog<sub>g</sub> and re-applying the Fourier transform reveals clear dominant peaks absent from the raw spectrum, confirming the model partially learns this re-parameterisation.</div>
+            <span class="finding-stat">2.14× Fourier concentration improvement under dlog re-indexing (9.4% → 20.0%)</span>
+          </div>
+        </div>
+
+        <div class="finding">
+          <div class="finding-num">3</div>
+          <div class="finding-body">
+            <div class="finding-title">Circuit formation before grokking</div>
+            <div class="finding-desc">Even in models that never grokked, Peter–Weyl analysis of the embedding matrices reveals energy concentrating in exactly the irreducible representations predicted by group theory. The circuit <em>starts forming</em> during the memorisation phase — the model is not confused about what to learn, just incapable of fitting it at this capacity.</div>
+            <span class="finding-stat">Correct dominant irrep identified in all 4 non-abelian models</span>
+          </div>
+        </div>
+
+        <div class="finding">
+          <div class="finding-num">4</div>
+          <div class="finding-body">
+            <div class="finding-title">Shared representational substrate (CKA)</div>
+            <div class="finding-desc">Centred kernel alignment between all 28 pairs of embedding matrices shows uniformly high similarity — including between a fully grokked abelian model and a fully memorised non-abelian model. The most surprising pair: add–S₃ = 0.97. Early-stage embeddings appear driven by positional encoding and loss structure, not task-specific algebraic circuits.</div>
+            <span class="finding-stat">All 28 CKA pairs ≥ 0.80 · mean 0.90 · add–S₃ = 0.97</span>
+          </div>
+        </div>
+
+        <div class="finding">
+          <div class="finding-num">5</div>
+          <div class="finding-body">
+            <div class="finding-title">Subtraction is slower than expected</div>
+            <div class="finding-desc">Modular subtraction is algebraically isomorphic to addition (just negate one token). Yet subtraction grokked ~184 epochs later. The conjecture: the model must discover the negation map from data, adding a constant overhead not present in addition. This is a small but seed-consistent and statistically stable deviation from the formal complexity predictions.</div>
+            <span class="finding-stat">Sub grokked at 1767 vs Add at 1583 (same C₁/C₂ complexity score)</span>
+          </div>
+        </div>
+
+        <div class="finding">
+          <div class="finding-num">6</div>
+          <div class="finding-body">
+            <div class="finding-title">Ablations rule out dataset size, train fraction, and weight decay</div>
+            <div class="finding-desc">Three controlled ablations confirm the abelian/non-abelian boundary is not an artifact. Subsampling addition to 36 pairs (matching S₃'s dataset) still grokked; S₃ at the same size did not. The relative ordering of grokking delays is stable across train fractions of 50%–90% and weight decay values of 0.1–10.0.</div>
+            <span class="finding-stat">Kendall τ ≥ 0.8 across all ablation conditions</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- METHODS -->
+      <div class="learn-content" id="grokking-methods">
+        <table class="methods-table">
+          <thead>
+            <tr><th>Method</th><th>What it measures</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Fourier embedding analysis</td>
+              <td>Projects the token embedding matrix W<sub>E</sub> onto a DFT basis. High concentration in a few frequencies = the model uses a clock circuit. Abelian groups allow this; non-abelian ones don't.</td>
+            </tr>
+            <tr>
+              <td>Discrete-log re-indexing</td>
+              <td>Re-orders the embedding rows by dlog<sub>g</sub>(a) then re-applies DFT. A 2× concentration improvement provides geometric evidence that the model encodes multiplication via the isomorphism dlog(a·b) ≡ dlog(a) + dlog(b).</td>
+            </tr>
+            <tr>
+              <td>Peter–Weyl decomposition</td>
+              <td>Decomposes embedding energy into irreducible representations of a finite group G using character tables. The dominant irrep reveals which algebraic structure the model is trying to use, even before it generalises.</td>
+            </tr>
+            <tr>
+              <td>Linear CKA</td>
+              <td>Centred kernel alignment measures geometric similarity between two embedding matrices, invariant to rotation and scaling. Score of 1 = identical structure; 0 = orthogonal. Used to compare all 28 pairs of trained models.</td>
+            </tr>
+            <tr>
+              <td>Logit attribution</td>
+              <td>Decomposes the correct-answer logit into contributions from each attention head, the MLP, and the embedding itself. Identifies which components are doing the algorithmic work.</td>
+            </tr>
+            <tr>
+              <td>Grokking epoch CDF</td>
+              <td>Plots the cumulative fraction of seeds that have grokked by epoch t, across 3 seeds per operation. Used to compare grokking timing reliably across tasks.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- RESULTS -->
+      <div class="learn-content" id="grokking-results">
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th>Operation</th>
+              <th>Train acc</th>
+              <th>Test acc</th>
+              <th>Grokked?</th>
+              <th>Mean epoch</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>(a+b) mod 113</td>
+              <td>100%</td>
+              <td>100%</td>
+              <td><span class="tick">✓</span></td>
+              <td class="mono">1583 ± 118</td>
+            </tr>
+            <tr>
+              <td>(a×b) mod 113</td>
+              <td>100%</td>
+              <td>100%</td>
+              <td><span class="tick">✓</span></td>
+              <td class="mono">1600 ± 187</td>
+            </tr>
+            <tr>
+              <td>(a−b) mod 113</td>
+              <td>100%</td>
+              <td>100%</td>
+              <td><span class="tick">✓</span></td>
+              <td class="mono">1767 ± 85</td>
+            </tr>
+            <tr>
+              <td>(a+b) mod 100 (ring)</td>
+              <td>100%</td>
+              <td>100%</td>
+              <td><span class="tick">✓</span></td>
+              <td class="mono">1767 ± 165</td>
+            </tr>
+            <tr>
+              <td>S₃ (|G|=6)</td>
+              <td>100%</td>
+              <td>6.1%</td>
+              <td><span class="cross">✗</span></td>
+              <td class="mono">—</td>
+            </tr>
+            <tr>
+              <td>D₅ (|G|=10)</td>
+              <td>100%</td>
+              <td>4.4%</td>
+              <td><span class="cross">✗</span></td>
+              <td class="mono">—</td>
+            </tr>
+            <tr>
+              <td>A₄ (|G|=12)</td>
+              <td>100%</td>
+              <td>2.3%</td>
+              <td><span class="cross">✗</span></td>
+              <td class="mono">—</td>
+            </tr>
+            <tr>
+              <td>S₄ (|G|=24)</td>
+              <td>100%</td>
+              <td>21.4%</td>
+              <td><span class="cross">✗</span></td>
+              <td class="mono">—</td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="font-size:13px;color:#888;font-style:italic;">All runs: 1-layer transformer, d<sub>model</sub>=64, AdamW, weight decay 1.0, 3 seeds per operation (1 for S₄), 3000 epochs (5000 for S₄).</p>
+      </div>
+
+      <!-- GLOSSARY -->
+      <div class="learn-content" id="grokking-glossary">
+
+        <div class="glossary-item">
+          <div class="glossary-term">Grokking</div>
+          <div class="glossary-def">Delayed generalisation in neural networks: training accuracy reaches 100% early, while test accuracy stays near chance for many more epochs before abruptly jumping to near-perfect. First described by Power et al. (2022).</div>
+        </div>
+
+        <div class="glossary-item">
+          <div class="glossary-term">Abelian group</div>
+          <div class="glossary-def">A group where the operation is commutative: a ∘ b = b ∘ a for all elements. Examples: integers under addition, non-zero integers mod prime under multiplication. All irreducible representations are one-dimensional, enabling Fourier clock circuits.</div>
+        </div>
+
+        <div class="glossary-item">
+          <div class="glossary-term">Non-abelian group</div>
+          <div class="glossary-def">A group where order matters: a ∘ b ≠ b ∘ a for some elements. Examples: S₃ (permutations of 3 elements), D₅ (symmetries of a pentagon). Require higher-dimensional irreps to represent, which need larger embedding spaces.</div>
+        </div>
+
+        <div class="glossary-item">
+          <div class="glossary-term">Fourier clock circuit</div>
+          <div class="glossary-def">The mechanism a transformer uses for modular addition: tokens are embedded as sin/cos waves at key frequencies, the attention head computes products of these, and the MLP reads off the sum frequency. Analogous to a clock face tracking angle mod p.</div>
+        </div>
+
+        <div class="glossary-item">
+          <div class="glossary-term">Peter–Weyl theorem</div>
+          <div class="glossary-def">A result from representation theory: any function on a finite group decomposes into irreducible representations (irreps). For abelian groups, irreps are all 1D (just Fourier modes). For non-abelian groups, irreps can be multi-dimensional, requiring more embedding space.</div>
+        </div>
+
+        <div class="glossary-item">
+          <div class="glossary-term">Discrete logarithm (dlog)</div>
+          <div class="glossary-def">For a prime p and primitive root g, dlog_g(a) is the exponent k such that g^k ≡ a mod p. The key isomorphism is dlog(a·b) ≡ dlog(a) + dlog(b) mod (p−1), reducing multiplication to addition in a transformed coordinate system.</div>
+        </div>
+
+        <div class="glossary-item">
+          <div class="glossary-term">Centred Kernel Alignment (CKA)</div>
+          <div class="glossary-def">A similarity metric between two representation matrices, invariant to rotation and isotropic scaling. Measures whether two models are organising their embeddings in a geometrically similar way, even if the specific vectors differ.</div>
+        </div>
+
+        <div class="glossary-item">
+          <div class="glossary-term">Irreducible representation (irrep)</div>
+          <div class="glossary-def">The "atoms" of group representations — the simplest building blocks that cannot be decomposed further. Abelian groups only have 1D irreps (scalar signals), while non-abelian groups have irreps of dimension ≥ 2, requiring higher-dimensional embeddings to encode.</div>
+        </div>
+
+      </div>
+    </div><!-- /learn-panel -->
+  </div>
+  <!-- END PAPER 1 -->
+
+  <!-- PAPER 2: MoE Interpretability -->
   <div class="paper">
     <p class="paper-title">Mechanistic Interpretability of Attention Heads in Sparse MoE Transformers</p>
     <p class="paper-venue">Independent research · 2025</p>
     <p class="paper-abstract">Reverse-engineered internal circuits in a 125M-parameter sparse MoE LM using activation patching, attention-head ablations, and logit-lens projections. Identified 7 functionally distinct head archetypes. Found 3.8× more representable features than available neurons, confirming the superposition hypothesis. Open-sourced a reusable interpretability toolkit compatible with any HuggingFace causal LM.</p>
   </div>
 
-  <div class="paper">
-    <p class="paper-title">Grokking Dynamics in Modular Arithmetic: Phase Transitions and Delayed Generalization</p>
-    <p class="paper-venue">arXiv preprint · 2025</p>
-    <p class="paper-abstract">Extended the grokking phenomenon across modular arithmetic, sparse parity, and group composition. Derived empirical scaling law Tg ∝ D⁻⁰·⁷⁴ λ⁻⁰·⁵¹ and verified a circuit-formation hypothesis via frequency-domain neuron analysis — 8.4% accuracy drop per frequency-selective neuron ablated. Full reproducibility kit on GitHub &amp; Hugging Face.</p>
-  </div>
 </section>
 
 <section id="experience">
@@ -388,15 +886,33 @@ footer {
     <li><span class="label">email</span><a href="mailto:palmani2410@gmail.com">palmani2410@gmail.com</a></li>
     <li><span class="label">phone</span><a href="tel:+917380626997">+91 73806 26997</a></li>
     <li><span class="label">github</span><a href="https://github.com/groot-code24" target="_blank">github.com/groot-code24</a> (ML research)</li>
-    <li><span class="label">github</span><a href="https://github.com/groot-code24" target="_blank">github.com/groot-code24</a> (High ML Projects)</li>
     <li><span class="label">linkedin</span><a href="https://linkedin.com/in/mani-pal-68b570163" target="_blank">linkedin.com/in/mani-pal-68b570163</a></li>
-    <li><span class="label">hugging face</span><a href="https://huggingface.co/justbytecode" target="_blank">huggingface.co/justbytecode (New Updates Will be Live soon)</a></li>
+    <li><span class="label">hugging face</span><a href="https://huggingface.co/justbytecode" target="_blank">huggingface.co/justbytecode</a></li>
   </ul>
 </section>
 
 <footer>
   Mani Pal · Delhi, India · Open to remote &amp; relocation
 </footer>
+
+<script>
+function toggleLearn(id, btn) {
+  const panel = document.getElementById('panel-' + id);
+  const isOpen = panel.classList.contains('open');
+  panel.classList.toggle('open', !isOpen);
+  btn.classList.toggle('open', !isOpen);
+}
+
+function switchTab(paperId, tabId, el) {
+  // deactivate all tabs and contents for this paper
+  const panel = document.getElementById('panel-' + paperId);
+  panel.querySelectorAll('.learn-tab').forEach(t => t.classList.remove('active'));
+  panel.querySelectorAll('.learn-content').forEach(c => c.classList.remove('active'));
+  // activate selected
+  el.classList.add('active');
+  document.getElementById(paperId + '-' + tabId).classList.add('active');
+}
+</script>
 
 </body>
 </html>
