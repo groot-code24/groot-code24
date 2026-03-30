@@ -9,11 +9,11 @@ Hi, I'm Mani Pal — an AI/ML Engineer focused on building high-performance LLM 
 <table>
   <tr>
     <td align="center" width="200">
-      <img src="https://img.shields.io/badge/MIT-OpenCourseWare-A31F34?style=for-the-badge&logo=mit&logoColor=white" alt="MIT"/>
+      <img src="https://img.shields.io/badge/MITx-edX%20Certificate-A31F34?style=for-the-badge&logo=edx&logoColor=white" alt="MITx"/>
       <br/><br/>
       <strong>Linear Algebra to Deep Learning</strong>
       <br/>
-      <sub>Massachusetts Institute of Technology</sub>
+      <sub>Massachusetts Institute of Technology (MITx)</sub>
       <br/>
       <sub>18.065 · Matrix Methods in Data Analysis, Signal Processing & Machine Learning</sub>
     </td>
