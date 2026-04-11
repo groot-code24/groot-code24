@@ -5,916 +5,830 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Mani Pal</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ─── RESET & BASE ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --white:    #ffffff;
+  --bg:       #fafaf8;
+  --text:     #1a1a1a;
+  --text-mid: #444;
+  --text-dim: #777;
+  --link:     #2563eb;
+  --link-hov: #1d4ed8;
+  --border:   #e8e8e4;
+  --sidebar:  220px;
+}
+
+html { scroll-behavior: smooth; }
 
 body {
   font-family: 'Lora', Georgia, serif;
-  font-size: 17px;
-  line-height: 1.75;
-  color: #1a1a1a;
-  background: #fff;
-  padding: 64px 24px 100px;
-  max-width: 680px;
-  margin: 0 auto;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
-/* HEADER */
-header { margin-bottom: 52px; }
+/* ─── FLOATING DOTS CANVAS ─── */
+#dots-canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
 
-header h1 {
-  font-size: 26px;
+/* ─── TOP NAV ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 52px;
+  background: rgba(250,250,248,0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 36px;
+  z-index: 200;
+  gap: 32px;
+}
+
+.nav-name {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
   font-weight: 600;
-  letter-spacing: -.01em;
+  color: var(--text);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: color 0.2s;
+  letter-spacing: 0.01em;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-links a.active { color: var(--text); font-weight: 500; }
+
+/* ─── LAYOUT ─── */
+.layout {
+  display: flex;
+  min-height: 100vh;
+  padding-top: 52px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── SIDEBAR ─── */
+.sidebar {
+  width: var(--sidebar);
+  flex-shrink: 0;
+  position: sticky;
+  top: 52px;
+  height: calc(100vh - 52px);
+  overflow-y: auto;
+  padding: 40px 28px 40px 36px;
+  border-right: 1px solid var(--border);
+}
+
+.sidebar::-webkit-scrollbar { width: 0; }
+
+/* Avatar placeholder — circular */
+.avatar-wrap {
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 16px;
+  flex-shrink: 0;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+}
+
+.avatar-img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.sidebar-name {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 16px;
+  letter-spacing: -0.01em;
+}
+
+.sidebar-info {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.sidebar-info-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: var(--text-mid);
+  line-height: 1.4;
+}
+
+.info-icon {
+  flex-shrink: 0;
+  width: 16px;
+  margin-top: 1px;
+  color: var(--text-dim);
+  font-style: normal;
+}
+
+.sidebar-info-row a {
+  color: var(--text-mid);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.sidebar-info-row a:hover { color: var(--link); }
+
+.sidebar-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 20px 0;
+}
+
+/* ─── MAIN CONTENT ─── */
+.main {
+  flex: 1;
+  min-width: 0;
+  padding: 52px 64px 80px 64px;
+  max-width: 820px;
+}
+
+/* ─── SECTIONS ─── */
+.section { display: none; }
+.section.active {
+  display: block;
+  animation: fadeIn 0.35s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── HOME / BIO ─── */
+.hello-heading {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(28px, 3.5vw, 38px);
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 24px;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.bio-para {
+  font-size: 16px;
+  color: var(--text-mid);
+  line-height: 1.8;
+  margin-bottom: 18px;
+  max-width: 640px;
+}
+
+.bio-para a {
+  color: var(--link);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+.bio-para a:hover { border-bottom-color: var(--link); }
+
+.research-dirs {
+  margin-top: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 640px;
+}
+
+.research-dir-item {
+  font-size: 15.5px;
+  color: var(--text-mid);
+  line-height: 1.7;
+  padding-left: 20px;
+  position: relative;
+}
+
+.research-dir-item::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--text);
+  font-size: 16px;
+}
+
+.research-dir-item strong {
+  font-weight: 600;
+  color: var(--text);
+  font-style: normal;
+}
+
+.research-dir-item a {
+  color: var(--link);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+.research-dir-item a:hover { border-bottom-color: var(--link); }
+
+/* ─── SECTION HEADING ─── */
+.section-heading {
+  font-family: 'DM Serif Display', serif;
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 32px;
+  letter-spacing: -0.02em;
+}
+
+/* ─── PAPER CARDS ─── */
+.papers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.paper-card {
+  display: flex;
+  gap: 22px;
+  padding: 22px 20px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  transition: all 0.2s;
+  cursor: default;
+}
+
+.paper-card:hover {
+  background: var(--white);
+  border-color: var(--border);
+  box-shadow: 0 2px 18px rgba(0,0,0,0.06);
+}
+
+.paper-thumb {
+  flex-shrink: 0;
+  width: 88px; height: 88px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #e8eaf6;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--border);
+}
+
+.paper-thumb img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.paper-thumb-placeholder {
+  font-size: 32px;
+  line-height: 1;
+}
+
+.paper-body { flex: 1; min-width: 0; }
+
+.paper-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--link);
+  text-decoration: none;
+  line-height: 1.45;
+  display: block;
+  margin-bottom: 6px;
+  transition: color 0.2s;
+}
+.paper-title:hover { color: var(--link-hov); }
+
+.paper-authors {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13.5px;
+  color: var(--text-dim);
+  line-height: 1.55;
+  margin-bottom: 5px;
+}
+
+.paper-authors strong {
+  font-weight: 600;
+  color: var(--text-mid);
+}
+
+.paper-venue {
+  font-family: 'Lora', serif;
+  font-size: 13.5px;
+  font-style: italic;
+  color: var(--text-dim);
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.paper-links {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+}
+
+.paper-link {
+  color: var(--link);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.paper-link:hover { color: var(--link-hov); text-decoration: underline; }
+
+.paper-sep {
+  color: var(--border);
+  margin: 0 8px;
+  font-size: 12px;
+}
+
+/* ─── PROJECTS SECTION ─── */
+.projects-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.project-card {
+  padding: 22px 20px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  transition: all 0.2s;
+}
+
+.project-card:hover {
+  background: var(--white);
+  border-color: var(--border);
+  box-shadow: 0 2px 18px rgba(0,0,0,0.06);
+}
+
+.project-name-link {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--link);
+  text-decoration: none;
+  display: block;
   margin-bottom: 4px;
 }
 
-header .sub {
-  font-size: 15px;
-  font-style: italic;
-  color: #666;
-  margin-bottom: 16px;
-}
-
-nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 0;
-  font-size: 15px;
-  color: #555;
-}
-
-nav a {
-  color: #1a5cac;
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: border-color .15s;
-}
-nav a:hover { border-color: #1a5cac; }
-nav .sep { margin: 0 8px; color: #bbb; }
-
-/* SECTIONS */
-section { margin-bottom: 44px; }
-
-h2 {
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: #999;
-  margin-bottom: 18px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid #ebebeb;
-}
-
-/* ABOUT */
-.about p { color: #333; margin-bottom: 12px; }
-.about p:last-child { margin-bottom: 0; }
-
-/* STATS */
-.stats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 0;
-  margin-top: 20px;
-}
-.stat-item { width: 50%; padding-right: 24px; }
-.stat-item strong {
-  display: block;
-  font-size: 22px;
-  font-weight: 600;
-  letter-spacing: -.02em;
-  line-height: 1.2;
-}
-.stat-item span {
+.project-sub {
+  font-family: 'Lora', serif;
   font-size: 13px;
   font-style: italic;
-  color: #888;
-}
-
-/* SKILLS */
-.skills-row {
-  display: flex;
-  gap: 0;
+  color: var(--text-dim);
   margin-bottom: 8px;
-  font-size: 15px;
-}
-.skills-key {
-  min-width: 110px;
-  color: #999;
-  font-style: italic;
-  flex-shrink: 0;
-  font-size: 14px;
-  padding-top: 1px;
-}
-.skills-val { color: #333; }
-
-/* PROJECTS / PAPERS / EXPERIENCE */
-.project, .paper, .exp {
-  margin-bottom: 28px;
-  padding-bottom: 28px;
-  border-bottom: 1px solid #f0f0f0;
-}
-.project:last-child, .paper:last-child, .exp:last-child {
-  border-bottom: none;
-  margin-bottom: 0;
-  padding-bottom: 0;
 }
 
-.item-header {
+.project-desc-p {
+  font-size: 14.5px;
+  color: var(--text-mid);
+  line-height: 1.7;
+  margin-bottom: 10px;
+  max-width: 580px;
+}
+
+.project-result-tag {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  color: #16a34a;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 5px;
+  padding: 4px 10px;
+  display: inline-block;
+  font-weight: 500;
+}
+
+/* ─── EXPERIENCE ─── */
+.exp-entry {
+  padding: 20px 20px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  margin-bottom: 4px;
+  transition: all 0.2s;
+}
+.exp-entry:hover { background: var(--white); border-color: var(--border); box-shadow: 0 2px 18px rgba(0,0,0,0.06); }
+
+.exp-header {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  gap: 16px;
-  margin-bottom: 2px;
-}
-.item-name {
-  font-size: 17px;
-  font-weight: 600;
-  color: #1a1a1a;
-}
-.item-year {
-  font-size: 13px;
-  font-style: italic;
-  color: #aaa;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-.item-sub {
-  font-size: 14px;
-  font-style: italic;
-  color: #888;
-  margin-bottom: 8px;
-}
-.item-desc {
-  font-size: 15px;
-  color: #444;
-  line-height: 1.7;
-  margin-bottom: 8px;
-}
-.item-result {
-  font-size: 14px;
-  font-style: italic;
-  color: #666;
+  margin-bottom: 3px;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
-/* PAPERS */
-.paper-title {
-  font-size: 17px;
-  font-weight: 500;
-  font-style: italic;
-  color: #1a1a1a;
-  margin-bottom: 4px;
-  line-height: 1.45;
-}
-.paper-venue {
-  font-size: 13px;
-  color: #888;
-  margin-bottom: 9px;
-}
-.paper-abstract {
+.exp-co {
+  font-family: 'DM Sans', sans-serif;
   font-size: 15px;
-  color: #444;
-  line-height: 1.7;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.exp-date {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+.exp-role {
+  font-family: 'Lora', serif;
+  font-size: 13.5px;
+  font-style: italic;
+  color: var(--text-dim);
   margin-bottom: 12px;
 }
 
-/* PAPER LINKS ROW */
-.paper-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 14px;
-}
-.paper-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 13px;
-  font-family: 'Lora', Georgia, serif;
-  font-style: italic;
-  color: #1a5cac;
-  text-decoration: none;
-  border: 1px solid #d0dff5;
-  border-radius: 3px;
-  padding: 4px 10px;
-  transition: background .15s, border-color .15s;
-}
-.paper-link:hover {
-  background: #f0f5ff;
-  border-color: #1a5cac;
-}
-
-/* READ & LEARN TOGGLE */
-.read-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  font-family: 'Lora', Georgia, serif;
-  font-style: italic;
-  color: #1a5cac;
-  cursor: pointer;
-  background: none;
-  border: 1px solid #d0dff5;
-  border-radius: 3px;
-  padding: 4px 10px;
-  transition: background .15s, border-color .15s;
-  user-select: none;
-}
-.read-toggle:hover {
-  background: #f0f5ff;
-  border-color: #1a5cac;
-}
-.read-toggle .arrow {
-  display: inline-block;
-  font-style: normal;
-  transition: transform .2s ease;
-  line-height: 1;
-}
-.read-toggle.open .arrow {
-  transform: rotate(90deg);
-}
-
-/* LEARN PANEL */
-.learn-panel {
-  display: none;
-  margin-top: 18px;
-  background: #f8f9fc;
-  border: 1px solid #e6eaf3;
-  border-radius: 4px;
-  overflow: hidden;
-}
-.learn-panel.open { display: block; }
-
-.learn-tabs {
-  display: flex;
-  border-bottom: 1px solid #e6eaf3;
-  background: #f0f2f8;
-}
-.learn-tab {
-  font-size: 12px;
-  font-family: 'Lora', Georgia, serif;
-  font-style: italic;
-  letter-spacing: .03em;
-  color: #888;
-  padding: 8px 14px;
-  cursor: pointer;
-  border-bottom: 2px solid transparent;
-  transition: color .15s;
-  user-select: none;
-}
-.learn-tab.active {
-  color: #1a1a1a;
-  border-bottom-color: #1a5cac;
-  background: #f8f9fc;
-}
-
-.learn-content { display: none; padding: 18px 20px; }
-.learn-content.active { display: block; }
-
-/* OVERVIEW */
-.overview-abstract {
-  font-size: 14.5px;
-  color: #333;
-  line-height: 1.75;
-  margin-bottom: 16px;
-}
-.overview-badge-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 16px;
-}
-.badge {
-  font-size: 12px;
-  font-style: italic;
-  color: #555;
-  background: #e8ecf6;
-  border-radius: 2px;
-  padding: 3px 8px;
-}
-.badge.green { background: #e6f4ec; color: #2a6b3e; }
-.badge.red { background: #fdf0f0; color: #8b2020; }
-.badge.blue { background: #e8f0fc; color: #1a4a8c; }
-
-/* FINDINGS LIST */
-.finding {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 16px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid #e8eaf2;
-}
-.finding:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-.finding-num {
-  flex-shrink: 0;
-  width: 22px;
-  height: 22px;
-  background: #1a5cac;
-  color: #fff;
-  border-radius: 50%;
-  font-size: 11px;
-  font-style: normal;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 3px;
-}
-.finding-body {}
-.finding-title {
-  font-size: 14px;
-  font-weight: 600;
-  color: #1a1a1a;
-  margin-bottom: 3px;
-}
-.finding-desc {
-  font-size: 13.5px;
-  color: #555;
-  line-height: 1.65;
-}
-.finding-stat {
-  display: inline-block;
-  font-style: italic;
-  color: #1a5cac;
-  font-size: 13px;
-  margin-top: 4px;
-}
-
-/* METHODS TABLE */
-.methods-table {
-  width: 100%;
-  font-size: 13px;
-  border-collapse: collapse;
-  margin-top: 4px;
-}
-.methods-table th {
-  text-align: left;
-  font-weight: 600;
-  font-size: 11px;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  color: #999;
-  padding: 6px 8px 6px 0;
-  border-bottom: 1px solid #e0e3ed;
-}
-.methods-table td {
-  padding: 7px 8px 7px 0;
-  color: #444;
-  border-bottom: 1px solid #f0f2f8;
-  vertical-align: top;
-}
-.methods-table tr:last-child td { border-bottom: none; }
-.methods-table td:first-child { color: #888; font-style: italic; font-size: 12.5px; white-space: nowrap; padding-right: 14px; }
-
-/* RESULTS TABLE */
-.results-table {
-  width: 100%;
-  font-size: 13px;
-  border-collapse: collapse;
-  margin-bottom: 14px;
-}
-.results-table th {
-  text-align: left;
-  font-weight: 600;
-  font-size: 11px;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  color: #999;
-  padding: 6px 8px 6px 0;
-  border-bottom: 1px solid #e0e3ed;
-}
-.results-table td {
-  padding: 7px 8px 7px 0;
-  color: #444;
-  border-bottom: 1px solid #f0f2f8;
-}
-.results-table tr:last-child td { border-bottom: none; }
-.tick { color: #2a7a45; font-style: normal; }
-.cross { color: #b22222; font-style: normal; }
-.mono { font-family: 'Courier New', monospace; font-size: 12px; }
-
-/* GLOSSARY */
-.glossary-item {
-  margin-bottom: 14px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid #e8eaf2;
-}
-.glossary-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-.glossary-term {
-  font-size: 14px;
-  font-weight: 600;
-  color: #1a1a1a;
-  margin-bottom: 3px;
-}
-.glossary-def {
-  font-size: 13.5px;
-  color: #555;
-  line-height: 1.65;
-}
-
-/* EXPERIENCE */
-.exp ul {
+.exp-bullets {
   padding-left: 18px;
-  color: #444;
-  font-size: 15px;
-}
-.exp ul li { margin-bottom: 5px; line-height: 1.65; }
-
-/* CONTACT */
-.contact-list { font-size: 16px; color: #333; }
-.contact-list li { margin-bottom: 8px; list-style: none; }
-.contact-list a {
-  color: #1a5cac;
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: border-color .15s;
-}
-.contact-list a:hover { border-color: #1a5cac; }
-.contact-list .label {
-  color: #aaa;
-  font-style: italic;
-  font-size: 14px;
-  margin-right: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
-footer {
-  margin-top: 56px;
-  padding-top: 20px;
-  border-top: 1px solid #ebebeb;
-  font-size: 13px;
-  font-style: italic;
-  color: #bbb;
+.exp-bullets li {
+  font-size: 14.5px;
+  color: var(--text-mid);
+  line-height: 1.65;
 }
 
-@media (max-width: 500px) {
-  body { font-size: 16px; padding: 40px 20px 80px; }
-  .stat-item { width: 100%; }
-  .skills-row { flex-direction: column; gap: 2px; }
-  .skills-key { min-width: unset; }
-  .paper-links { flex-direction: column; }
+/* ─── MOBILE ─── */
+@media (max-width: 700px) {
+  .sidebar { display: none; }
+  .main { padding: 32px 24px 60px; }
+  nav { padding: 0 20px; }
+  .paper-card { flex-direction: column; }
+  .paper-thumb { width: 100%; height: 160px; }
 }
+
 </style>
 </head>
 <body>
 
-<header>
-  <h1>Mani Pal</h1>
-  <p class="sub">AI/ML Engineer &amp; Researcher — Delhi, India</p>
-  <nav>
-    <a href="#about">About</a><span class="sep">/</span>
-    <a href="#projects">Projects</a><span class="sep">/</span>
-    <a href="#research">Research</a><span class="sep">/</span>
-    <a href="#experience">Experience</a><span class="sep">/</span>
-    <a href="mailto:palmani2410@gmail.com">Email</a><span class="sep">/</span>
-    <a href="https://github.com/justbytecode" target="_blank">GitHub</a><span class="sep">/</span>
-    <a href="https://linkedin.com/in/mani-pal-68b570163" target="_blank">LinkedIn</a><span class="sep">/</span>
-    <a href="https://huggingface.co/justbytecode" target="_blank">Hugging Face</a>
-  </nav>
-</header>
+<!-- Floating dots canvas -->
+<canvas id="dots-canvas"></canvas>
 
-<section id="about" class="about">
-  <h2>About</h2>
-  <p>
-    I'm a self-taught AI/ML engineer with 4+ years of hands-on experience across the full LLM development stack —
-    from writing CUDA kernels and training models from scratch, to alignment research (RLHF, DPO, GRPO)
-    and publishing independent mechanistic interpretability work.
-  </p>
-  <p>
-    I think the most interesting engineering happens at the boundary where research meets production.
-    My work reflects that: I don't just implement algorithms — I profile them, optimise them, and ship them.
-    Open to senior ML engineering roles, research collaborations, and consulting. Remote-friendly and open to relocation.
-  </p>
-  <div class="stats">
-    <div class="stat-item">
-      <strong>700M</strong>
-      <span>parameters trained from scratch</span>
-    </div>
-    <div class="stat-item">
-      <strong>2.4×</strong>
-      <span>CPU inference speedup</span>
-    </div>
-    <div class="stat-item">
-      <strong>2.1×</strong>
-      <span>GPU throughput via FlashAttn-2</span>
-    </div>
-    <div class="stat-item">
-      <strong>4+ yrs</strong>
-      <span>production ML experience</span>
-    </div>
-  </div>
-</section>
-
-<section id="skills">
-  <h2>Skills</h2>
-  <div class="skills-row"><span class="skills-key">Core ML</span><span class="skills-val">PyTorch, CUDA C++, Triton, JAX / Flax, TensorFlow</span></div>
-  <div class="skills-row"><span class="skills-key">LLM Infra</span><span class="skills-val">FlashAttention-2, vLLM, SGLang, TensorRT-LLM, KV-Cache</span></div>
-  <div class="skills-row"><span class="skills-key">Training</span><span class="skills-val">FSDP, DeepSpeed ZeRO, Megatron-LM, LoRA / QLoRA</span></div>
-  <div class="skills-row"><span class="skills-key">Alignment</span><span class="skills-val">RLHF, GRPO, DPO, PPO, Reward Modeling, SFT</span></div>
-  <div class="skills-row"><span class="skills-key">Architecture</span><span class="skills-val">Transformer, Mamba-2 / SSM, Sparse MoE, RWKV, RoPE</span></div>
-  <div class="skills-row"><span class="skills-key">Infra</span><span class="skills-val">Python, Rust, C++, AWS, Kubernetes, FastAPI, Kafka</span></div>
-</section>
-
-<section id="projects">
-  <h2>Projects</h2>
-
-  <div class="project">
-    <div class="item-header">
-      <span class="item-name">Project Chimera — 700M Hybrid LLM</span>
-      <span class="item-year">2025–26</span>
-    </div>
-    <p class="item-sub">Mamba-2 / Transformer hybrid · trained from scratch</p>
-    <p class="item-desc">Designed and pre-trained a 700M-parameter hybrid Mamba-2/Transformer model from scratch with a custom BPE tokenizer. Applied Chinchilla-optimal data scheduling, GRPO chain-of-thought fine-tuning, and DPO safety alignment. INT4 GGUF quantized; weights published on Hugging Face Hub.</p>
-    <p class="item-result">4.2 GB INT4 GGUF · &lt;3s first-token on CPU · GRPO + DPO aligned</p>
-  </div>
-
-  <div class="project">
-    <div class="item-header">
-      <span class="item-name">FlashAttention-2 CUDA Kernel</span>
-      <span class="item-year">2026</span>
-    </div>
-    <p class="item-sub">Custom GPU attention engine</p>
-    <p class="item-desc">Implemented tiled IO-aware FlashAttention-2 from scratch in CUDA C++, fusing QKV matmul, softmax, and weighted-sum into a single SRAM-resident kernel pass. Reduced HBM bandwidth from O(N²) to O(N). Packaged as a pip-installable PyTorch C++ extension.</p>
-    <p class="item-result">2.1× throughput vs PyTorch baseline (A100, seqlen 4096) · O(N) HBM bandwidth</p>
-  </div>
-
-  <div class="project">
-    <div class="item-header">
-      <span class="item-name">Speculative Decoding Inference Engine</span>
-      <span class="item-year">2025</span>
-    </div>
-    <p class="item-sub">OpenAI-compatible inference server</p>
-    <p class="item-desc">Draft-verifier runtime pairing Qwen2.5-0.5B with Qwen2.5-3B using temperature-corrected rejection sampling. Adaptive gamma scheduling adjusts lookahead window per-step on acceptance rate. Served via OpenAI-compatible FastAPI endpoint.</p>
-    <p class="item-result">2.4× mean tokens/sec on CPU · identical output distribution</p>
-  </div>
-
-  <div class="project">
-    <div class="item-header">
-      <span class="item-name">Sparse MoE Scaling Experiment</span>
-      <span class="item-year">2026</span>
-    </div>
-    <p class="item-sub">Mixture-of-Experts architecture from scratch</p>
-    <p class="item-desc">Sparse top-k MoE layer (k=2, 8 experts) with z-loss load-balancing via Switch Transformer formulation. Characterised expert utilization collapse via routing entropy curves; identified z-loss thresholds that prevent collapse without degrading performance.</p>
-    <p class="item-result">2.3× throughput vs dense at matched FLOP budget · 125M active params @ 1B compute</p>
-  </div>
-
-  <div class="project">
-    <div class="item-header">
-      <span class="item-name">VAANI — Offline Hindi Voice Assistant</span>
-      <span class="item-year">2026</span>
-    </div>
-    <p class="item-sub">Hindi-first · fully offline pipeline</p>
-    <p class="item-desc">Fully offline voice pipeline: openWakeWord → Whisper ASR → Qwen2.5-3B-Instruct Q4_K_M (128K context) → Piper TTS. Fine-tuned XTTS v2 on AI4Bharat Hindi corpus. 8-layer modular plugin architecture.</p>
-    <p class="item-result">&lt;800ms end-to-end latency on CPU · zero internet dependency</p>
-  </div>
-</section>
-
-<!-- ===================== RESEARCH ===================== -->
-<section id="research">
-  <h2>Research</h2>
-
-  <!-- PAPER 1: Grokking Beyond Addition -->
-  <div class="paper">
-    <p class="paper-title">Grokking Beyond Addition: Circuit-Level Analysis of Algebraic Learning in Transformers</p>
-    <p class="paper-venue">Independent research · March 2026</p>
-    <p class="paper-abstract">
-      Extends the grokking phenomenon from modular addition to eight algebraic operations — four abelian fields and four non-abelian groups (S₃, D₅, A₄, S₄). Discovers a clean capacity-dependent generalisation boundary: all abelian tasks grok to 100% test accuracy at d<sub>model</sub>=64; all non-abelian tasks memorise but never generalise. Peter–Weyl analysis identifies correct dominant irreps even in non-grokked models, showing circuit formation precedes successful grokking. CKA reveals a shared representational substrate across all eight operations.
-    </p>
-
-    <div class="paper-links">
-      <a class="paper-link" href="https://zenodo.org/records/19256207" target="_blank">
-        ↗ Zenodo · Paper
-      </a>
-      <a class="paper-link" href="https://github.com/groot-code24/Grokking-Circuit-Level-Analysis-of-Algebraic-Learning-in-Transformers" target="_blank">
-        ↗ GitHub &amp; Code
-      </a>
-      
-      <button class="read-toggle" id="toggle-grokking" onclick="toggleLearn('grokking', this)">
-        <span class="arrow">▶</span> Read &amp; Learn
-      </button>
-    </div>
-
-    <!-- LEARN PANEL -->
-    <div class="learn-panel" id="panel-grokking">
-      <div class="learn-tabs">
-        <div class="learn-tab active" onclick="switchTab('grokking', 'overview', this)">Overview</div>
-        <div class="learn-tab" onclick="switchTab('grokking', 'findings', this)">Key Findings</div>
-        <div class="learn-tab" onclick="switchTab('grokking', 'methods', this)">Methods</div>
-        <div class="learn-tab" onclick="switchTab('grokking', 'results', this)">Results</div>
-        <div class="learn-tab" onclick="switchTab('grokking', 'glossary', this)">Glossary</div>
-      </div>
-
-      <!-- OVERVIEW -->
-      <div class="learn-content active" id="grokking-overview">
-        <p class="overview-abstract">
-          <strong>What is grokking?</strong> Small neural networks trained on structured tasks like modular arithmetic often achieve 100% training accuracy quickly, then sit at near-zero test accuracy for hundreds or thousands of epochs — before suddenly generalising to perfect test accuracy. This delayed generalisation is called <em>grokking</em>.
-        </p>
-        <p class="overview-abstract">
-          Prior work (Nanda et al., 2023) explained the circuit behind modular <em>addition</em>. This paper asks: does grokking happen for other algebraic operations? And what determines whether a model can generalise at all?
-        </p>
-        <p class="overview-abstract">
-          The answer is surprisingly clean: at d<sub>model</sub>=64, <strong>all abelian (commutative) tasks grok; all non-abelian (non-commutative) tasks don't</strong> — not because of data size or training time, but because the model simply lacks the embedding dimensions to represent the required algebraic structure.
-        </p>
-        <div class="overview-badge-row">
-          <span class="badge blue">1-layer transformer</span>
-          <span class="badge blue">d_model = 64</span>
-          <span class="badge blue">8 algebraic tasks</span>
-          <span class="badge green">Abelian → grokked ✓</span>
-          <span class="badge red">Non-abelian → memorised only ✗</span>
-          <span class="badge blue">Free T4 GPU · ~3 hrs</span>
-        </div>
-      </div>
-
-      <!-- KEY FINDINGS -->
-      <div class="learn-content" id="grokking-findings">
-
-        <div class="finding">
-          <div class="finding-num">1</div>
-          <div class="finding-body">
-            <div class="finding-title">Abelian / Non-abelian grokking boundary</div>
-            <div class="finding-desc">All four abelian operations (addition, subtraction, multiplication, ring addition) grokked to 100% test accuracy. All four non-abelian groups (S₃, D₅, A₄, S₄) memorised perfectly but never generalised — test accuracy stayed below 25%. Same model, same epoch budget, same training accuracy.</div>
-            <span class="finding-stat">100% grok rate (abelian) vs 0% grok rate (non-abelian)</span>
-          </div>
-        </div>
-
-        <div class="finding">
-          <div class="finding-num">2</div>
-          <div class="finding-body">
-            <div class="finding-title">Discrete-log hypothesis — geometric evidence</div>
-            <div class="finding-desc">Multiplication mod p reduces to addition in the discrete-log domain. Re-indexing the embedding matrix by dlog<sub>g</sub> and re-applying the Fourier transform reveals clear dominant peaks absent from the raw spectrum, confirming the model partially learns this re-parameterisation.</div>
-            <span class="finding-stat">2.14× Fourier concentration improvement under dlog re-indexing (9.4% → 20.0%)</span>
-          </div>
-        </div>
-
-        <div class="finding">
-          <div class="finding-num">3</div>
-          <div class="finding-body">
-            <div class="finding-title">Circuit formation before grokking</div>
-            <div class="finding-desc">Even in models that never grokked, Peter–Weyl analysis of the embedding matrices reveals energy concentrating in exactly the irreducible representations predicted by group theory. The circuit <em>starts forming</em> during the memorisation phase — the model is not confused about what to learn, just incapable of fitting it at this capacity.</div>
-            <span class="finding-stat">Correct dominant irrep identified in all 4 non-abelian models</span>
-          </div>
-        </div>
-
-        <div class="finding">
-          <div class="finding-num">4</div>
-          <div class="finding-body">
-            <div class="finding-title">Shared representational substrate (CKA)</div>
-            <div class="finding-desc">Centred kernel alignment between all 28 pairs of embedding matrices shows uniformly high similarity — including between a fully grokked abelian model and a fully memorised non-abelian model. The most surprising pair: add–S₃ = 0.97. Early-stage embeddings appear driven by positional encoding and loss structure, not task-specific algebraic circuits.</div>
-            <span class="finding-stat">All 28 CKA pairs ≥ 0.80 · mean 0.90 · add–S₃ = 0.97</span>
-          </div>
-        </div>
-
-        <div class="finding">
-          <div class="finding-num">5</div>
-          <div class="finding-body">
-            <div class="finding-title">Subtraction is slower than expected</div>
-            <div class="finding-desc">Modular subtraction is algebraically isomorphic to addition (just negate one token). Yet subtraction grokked ~184 epochs later. The conjecture: the model must discover the negation map from data, adding a constant overhead not present in addition. This is a small but seed-consistent and statistically stable deviation from the formal complexity predictions.</div>
-            <span class="finding-stat">Sub grokked at 1767 vs Add at 1583 (same C₁/C₂ complexity score)</span>
-          </div>
-        </div>
-
-        <div class="finding">
-          <div class="finding-num">6</div>
-          <div class="finding-body">
-            <div class="finding-title">Ablations rule out dataset size, train fraction, and weight decay</div>
-            <div class="finding-desc">Three controlled ablations confirm the abelian/non-abelian boundary is not an artifact. Subsampling addition to 36 pairs (matching S₃'s dataset) still grokked; S₃ at the same size did not. The relative ordering of grokking delays is stable across train fractions of 50%–90% and weight decay values of 0.1–10.0.</div>
-            <span class="finding-stat">Kendall τ ≥ 0.8 across all ablation conditions</span>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- METHODS -->
-      <div class="learn-content" id="grokking-methods">
-        <table class="methods-table">
-          <thead>
-            <tr><th>Method</th><th>What it measures</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Fourier embedding analysis</td>
-              <td>Projects the token embedding matrix W<sub>E</sub> onto a DFT basis. High concentration in a few frequencies = the model uses a clock circuit. Abelian groups allow this; non-abelian ones don't.</td>
-            </tr>
-            <tr>
-              <td>Discrete-log re-indexing</td>
-              <td>Re-orders the embedding rows by dlog<sub>g</sub>(a) then re-applies DFT. A 2× concentration improvement provides geometric evidence that the model encodes multiplication via the isomorphism dlog(a·b) ≡ dlog(a) + dlog(b).</td>
-            </tr>
-            <tr>
-              <td>Peter–Weyl decomposition</td>
-              <td>Decomposes embedding energy into irreducible representations of a finite group G using character tables. The dominant irrep reveals which algebraic structure the model is trying to use, even before it generalises.</td>
-            </tr>
-            <tr>
-              <td>Linear CKA</td>
-              <td>Centred kernel alignment measures geometric similarity between two embedding matrices, invariant to rotation and scaling. Score of 1 = identical structure; 0 = orthogonal. Used to compare all 28 pairs of trained models.</td>
-            </tr>
-            <tr>
-              <td>Logit attribution</td>
-              <td>Decomposes the correct-answer logit into contributions from each attention head, the MLP, and the embedding itself. Identifies which components are doing the algorithmic work.</td>
-            </tr>
-            <tr>
-              <td>Grokking epoch CDF</td>
-              <td>Plots the cumulative fraction of seeds that have grokked by epoch t, across 3 seeds per operation. Used to compare grokking timing reliably across tasks.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- RESULTS -->
-      <div class="learn-content" id="grokking-results">
-        <table class="results-table">
-          <thead>
-            <tr>
-              <th>Operation</th>
-              <th>Train acc</th>
-              <th>Test acc</th>
-              <th>Grokked?</th>
-              <th>Mean epoch</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>(a+b) mod 113</td>
-              <td>100%</td>
-              <td>100%</td>
-              <td><span class="tick">✓</span></td>
-              <td class="mono">1583 ± 118</td>
-            </tr>
-            <tr>
-              <td>(a×b) mod 113</td>
-              <td>100%</td>
-              <td>100%</td>
-              <td><span class="tick">✓</span></td>
-              <td class="mono">1600 ± 187</td>
-            </tr>
-            <tr>
-              <td>(a−b) mod 113</td>
-              <td>100%</td>
-              <td>100%</td>
-              <td><span class="tick">✓</span></td>
-              <td class="mono">1767 ± 85</td>
-            </tr>
-            <tr>
-              <td>(a+b) mod 100 (ring)</td>
-              <td>100%</td>
-              <td>100%</td>
-              <td><span class="tick">✓</span></td>
-              <td class="mono">1767 ± 165</td>
-            </tr>
-            <tr>
-              <td>S₃ (|G|=6)</td>
-              <td>100%</td>
-              <td>6.1%</td>
-              <td><span class="cross">✗</span></td>
-              <td class="mono">—</td>
-            </tr>
-            <tr>
-              <td>D₅ (|G|=10)</td>
-              <td>100%</td>
-              <td>4.4%</td>
-              <td><span class="cross">✗</span></td>
-              <td class="mono">—</td>
-            </tr>
-            <tr>
-              <td>A₄ (|G|=12)</td>
-              <td>100%</td>
-              <td>2.3%</td>
-              <td><span class="cross">✗</span></td>
-              <td class="mono">—</td>
-            </tr>
-            <tr>
-              <td>S₄ (|G|=24)</td>
-              <td>100%</td>
-              <td>21.4%</td>
-              <td><span class="cross">✗</span></td>
-              <td class="mono">—</td>
-            </tr>
-          </tbody>
-        </table>
-        <p style="font-size:13px;color:#888;font-style:italic;">All runs: 1-layer transformer, d<sub>model</sub>=64, AdamW, weight decay 1.0, 3 seeds per operation (1 for S₄), 3000 epochs (5000 for S₄).</p>
-      </div>
-
-      <!-- GLOSSARY -->
-      <div class="learn-content" id="grokking-glossary">
-
-        <div class="glossary-item">
-          <div class="glossary-term">Grokking</div>
-          <div class="glossary-def">Delayed generalisation in neural networks: training accuracy reaches 100% early, while test accuracy stays near chance for many more epochs before abruptly jumping to near-perfect. First described by Power et al. (2022).</div>
-        </div>
-
-        <div class="glossary-item">
-          <div class="glossary-term">Abelian group</div>
-          <div class="glossary-def">A group where the operation is commutative: a ∘ b = b ∘ a for all elements. Examples: integers under addition, non-zero integers mod prime under multiplication. All irreducible representations are one-dimensional, enabling Fourier clock circuits.</div>
-        </div>
-
-        <div class="glossary-item">
-          <div class="glossary-term">Non-abelian group</div>
-          <div class="glossary-def">A group where order matters: a ∘ b ≠ b ∘ a for some elements. Examples: S₃ (permutations of 3 elements), D₅ (symmetries of a pentagon). Require higher-dimensional irreps to represent, which need larger embedding spaces.</div>
-        </div>
-
-        <div class="glossary-item">
-          <div class="glossary-term">Fourier clock circuit</div>
-          <div class="glossary-def">The mechanism a transformer uses for modular addition: tokens are embedded as sin/cos waves at key frequencies, the attention head computes products of these, and the MLP reads off the sum frequency. Analogous to a clock face tracking angle mod p.</div>
-        </div>
-
-        <div class="glossary-item">
-          <div class="glossary-term">Peter–Weyl theorem</div>
-          <div class="glossary-def">A result from representation theory: any function on a finite group decomposes into irreducible representations (irreps). For abelian groups, irreps are all 1D (just Fourier modes). For non-abelian groups, irreps can be multi-dimensional, requiring more embedding space.</div>
-        </div>
-
-        <div class="glossary-item">
-          <div class="glossary-term">Discrete logarithm (dlog)</div>
-          <div class="glossary-def">For a prime p and primitive root g, dlog_g(a) is the exponent k such that g^k ≡ a mod p. The key isomorphism is dlog(a·b) ≡ dlog(a) + dlog(b) mod (p−1), reducing multiplication to addition in a transformed coordinate system.</div>
-        </div>
-
-        <div class="glossary-item">
-          <div class="glossary-term">Centred Kernel Alignment (CKA)</div>
-          <div class="glossary-def">A similarity metric between two representation matrices, invariant to rotation and isotropic scaling. Measures whether two models are organising their embeddings in a geometrically similar way, even if the specific vectors differ.</div>
-        </div>
-
-        <div class="glossary-item">
-          <div class="glossary-term">Irreducible representation (irrep)</div>
-          <div class="glossary-def">The "atoms" of group representations — the simplest building blocks that cannot be decomposed further. Abelian groups only have 1D irreps (scalar signals), while non-abelian groups have irreps of dimension ≥ 2, requiring higher-dimensional embeddings to encode.</div>
-        </div>
-
-      </div>
-    </div><!-- /learn-panel -->
-  </div>
-  <!-- END PAPER 1 -->
-
-  <!-- PAPER 2: MoE Interpretability -->
-  <div class="paper">
-    <p class="paper-title">Mechanistic Interpretability of Attention Heads in Sparse MoE Transformers</p>
-    <p class="paper-venue">Independent research · 2025</p>
-    <p class="paper-abstract">Reverse-engineered internal circuits in a 125M-parameter sparse MoE LM using activation patching, attention-head ablations, and logit-lens projections. Identified 7 functionally distinct head archetypes. Found 3.8× more representable features than available neurons, confirming the superposition hypothesis. Open-sourced a reusable interpretability toolkit compatible with any HuggingFace causal LM.</p>
-  </div>
-
-</section>
-
-<section id="experience">
-  <h2>Experience</h2>
-
-  <div class="exp">
-    <div class="item-header">
-      <span class="item-name">RecurX</span>
-      <span class="item-year">Jan 2024 – Present</span>
-    </div>
-    <p class="item-sub">Founding Engineer &amp; Technical Lead · Delhi, India</p>
-    <ul>
-      <li>Architected cross-chain payment infrastructure across Ethereum and Solana; sub-200ms transaction latency, 95% smart contract test coverage.</li>
-      <li>Reduced p95 API latency 280ms → 182ms (35% improvement) via Redis caching and query optimisation.</li>
-      <li>CI/CD pipeline cutting release cycles from 45 min → 8 min with zero-downtime blue-green deployments.</li>
-      <li>Horizontally-scalable microservices supporting 5,000+ concurrent WebSocket clients.</li>
-    </ul>
-  </div>
-
-  <div class="exp">
-    <div class="item-header">
-      <span class="item-name">Independent Consultant</span>
-      <span class="item-year">Jan 2021 – Dec 2023</span>
-    </div>
-    <p class="item-sub">Full-Stack &amp; AI Software Engineer · Remote</p>
-    <ul>
-      <li>Delivered 15+ production applications across SaaS, AI tooling, and Web3 domains.</li>
-      <li>Production RAG pipeline reducing attorney research time by 65% via hybrid BM25 + cross-encoder reranking.</li>
-      <li>Fine-tuned Mistral-7B and Llama-2 via QLoRA on AWS SageMaker; 85%+ test coverage.</li>
-      <li>Database optimisation achieving 10× query throughput on high-cardinality operations.</li>
-    </ul>
-  </div>
-</section>
-
-<section id="contact">
-  <h2>Contact</h2>
-  <ul class="contact-list">
-    <li><span class="label">email</span><a href="mailto:palmani2410@gmail.com">palmani2410@gmail.com</a></li>
-    <li><span class="label">phone</span><a href="tel:+917380626997">+91 73806 26997</a></li>
-    <li><span class="label">github</span><a href="https://github.com/groot-code24" target="_blank">github.com/groot-code24</a> (ML research)</li>
-    <li><span class="label">linkedin</span><a href="https://linkedin.com/in/mani-pal-68b570163" target="_blank">linkedin.com/in/mani-pal-68b570163</a></li>
-    <li><span class="label">hugging face</span><a href="https://huggingface.co/justbytecode" target="_blank">huggingface.co/justbytecode</a></li>
+<!-- ─── TOP NAV ─── -->
+<nav>
+  <a class="nav-name" href="#" onclick="showSection('home'); return false;">Mani Pal</a>
+  <ul class="nav-links">
+    <li><a href="#" id="nav-research" onclick="showSection('research'); return false;">research</a></li>
+    <li><a href="#" id="nav-projects" onclick="showSection('projects'); return false;">projects</a></li>
+    <li><a href="#" id="nav-experience" onclick="showSection('experience'); return false;">experience</a></li>
+    <li><a href="mailto:palmani2410@gmail.com">résumé</a></li>
   </ul>
-</section>
+</nav>
 
-<footer>
-  Mani Pal · Delhi, India · Open to remote &amp; relocation
-</footer>
+<!-- ─── LAYOUT ─── -->
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="avatar-wrap">
+      <img class="avatar-img" src="data:image/jpeg;base64,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" alt="Mani Pal" />
+    </div>
+
+    <div class="sidebar-name">Mani Pal</div>
+
+    <div class="sidebar-info">
+      <div class="sidebar-info-row">
+        <span class="info-icon">✉</span>
+        <span>palmani2410<br/>@gmail.com</span>
+      </div>
+
+      <div class="sidebar-info-row">
+        <span class="info-icon">📍</span>
+        <span>Delhi, India</span>
+      </div>
+
+      <div class="sidebar-divider"></div>
+
+      <div class="sidebar-info-row">
+        <span class="info-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+        </span>
+        <a href="https://github.com/groot-code24" target="_blank">Github</a>
+      </div>
+
+      <div class="sidebar-info-row">
+        <span class="info-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </span>
+        <a href="https://linkedin.com/in/manipalgrokking" target="_blank">LinkedIn</a>
+      </div>
+
+      <div class="sidebar-info-row">
+        <span class="info-icon">🤗</span>
+        <a href="https://huggingface.co/justbytecode" target="_blank">Hugging Face</a>
+      </div>
+
+      <div class="sidebar-info-row">
+        <span class="info-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8zm-.5-13H13v6l5.25 3.15-.75 1.23L11.5 14V7z"/></svg>
+        </span>
+        <span style="color:var(--text-dim);">Open to roles</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ─── MAIN ─── -->
+  <main class="main">
+
+    <!-- HOME -->
+    <section class="section active" id="sec-home">
+      <h1 class="hello-heading">Hello, I'm Mani!</h1>
+
+      <p class="bio-para">
+        I'm a self-taught AI/ML engineer with 4+ years of hands-on experience across the full LLM development stack. Currently the Founding Engineer at <a href="#">RecurX</a>, and doing independent research in mechanistic interpretability — recently published at <a href="https://zenodo.org/records/19256207" target="_blank">Zenodo</a>.
+      </p>
+
+      <p class="bio-para">
+        My work spans writing CUDA kernels, training 700M-parameter models from scratch, alignment research (RLHF, DPO, GRPO), and publishing independent mechanistic interpretability work. I believe the most interesting engineering happens at the boundary where research meets production.
+      </p>
+
+      <p class="bio-para">My research focuses on understanding and building efficient large language models, with three core directions:</p>
+
+      <div class="research-dirs">
+        <div class="research-dir-item">
+          <strong>Mechanistic Interpretability</strong> — Reverse-engineering circuits inside transformers and sparse MoE models to understand <em>how</em> they represent and process information, including publishing <a href="https://zenodo.org/records/19256207" target="_blank">Grokking Beyond Addition</a>, a circuit-level study of algebraic learning boundaries.
+        </div>
+        <div class="research-dir-item">
+          <strong>Efficient Inference</strong> — Building faster serving systems through speculative decoding, custom FlashAttention-2 CUDA kernels, and sparse mixture-of-experts architectures that achieve 2–2.4× throughput gains.
+        </div>
+        <div class="research-dir-item">
+          <strong>Multilingual &amp; Offline AI</strong> — Designing fully offline voice pipelines like <a href="#" onclick="showSection('projects'); return false;">VAANI</a>, a Hindi-first assistant with sub-800ms end-to-end latency on CPU and zero internet dependency.
+        </div>
+      </div>
+    </section>
+
+    <!-- RESEARCH -->
+    <section class="section" id="sec-research">
+      <h2 class="section-heading">Research Publications</h2>
+
+      <div class="papers-list">
+
+        <div class="paper-card">
+          <div class="paper-thumb">
+            <img
+              src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=200&q=80"
+              alt="Grokking"
+              onerror="this.parentElement.innerHTML='<span class=\'paper-thumb-placeholder\'>🧠</span>'"
+            />
+          </div>
+          <div class="paper-body">
+            <a class="paper-title" href="https://zenodo.org/records/19256207" target="_blank">
+              Grokking Beyond Addition: Circuit-Level Analysis of Algebraic Learning in Transformers
+            </a>
+            <div class="paper-authors">
+              <strong>Mani Pal</strong>.
+              <em>Zenodo</em>, 2026.
+            </div>
+            <div class="paper-venue">Independent Research · March 2026</div>
+            <div class="paper-links">
+              <a class="paper-link" href="https://zenodo.org/records/19256207" target="_blank">paper</a>
+              <span class="paper-sep">|</span>
+              <a class="paper-link" href="https://github.com/groot-code24/Grokking-Circuit-Level-Analysis-of-Algebraic-Learning-in-Transformers" target="_blank">code</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="paper-card">
+          <div class="paper-thumb">
+            <img
+              src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=200&q=80"
+              alt="MoE Interpretability"
+              onerror="this.parentElement.innerHTML='<span class=\'paper-thumb-placeholder\'>🔬</span>'"
+            />
+          </div>
+          <div class="paper-body">
+            <a class="paper-title" href="#" target="_blank">
+              Mechanistic Interpretability of Attention Heads in Sparse MoE Transformers
+            </a>
+            <div class="paper-authors">
+              <strong>Mani Pal</strong>.
+            </div>
+            <div class="paper-venue">Independent Research · 2025</div>
+            <div class="paper-links">
+              <a class="paper-link" href="https://github.com/justbytecode" target="_blank">code</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="section" id="sec-projects">
+      <h2 class="section-heading">Projects</h2>
+
+      <div class="projects-list">
+
+        <div class="project-card">
+          <a class="project-name-link" href="https://huggingface.co/justbytecode" target="_blank">Project Chimera — 700M Hybrid LLM</a>
+          <div class="project-sub">Mamba-2 / Transformer hybrid · trained from scratch · 2025–26</div>
+          <p class="project-desc-p">Designed and pre-trained a 700M-parameter hybrid Mamba-2/Transformer model with a custom BPE tokenizer, Chinchilla-optimal data scheduling, GRPO chain-of-thought fine-tuning, and DPO safety alignment. INT4 GGUF quantized; weights on Hugging Face Hub.</p>
+          <span class="project-result-tag">⚡ 4.2 GB INT4 · &lt;3s first-token on CPU · GRPO + DPO aligned</span>
+        </div>
+
+        <div class="project-card">
+          <a class="project-name-link" href="https://github.com/justbytecode" target="_blank">FlashAttention-2 CUDA Kernel</a>
+          <div class="project-sub">Custom GPU attention engine · 2026</div>
+          <p class="project-desc-p">Tiled IO-aware FlashAttention-2 from scratch in CUDA C++, fusing QKV matmul, softmax, and weighted-sum into a single SRAM-resident kernel. Reduces HBM bandwidth from O(N²) to O(N). Pip-installable PyTorch C++ extension.</p>
+          <span class="project-result-tag">⚡ 2.1× throughput vs PyTorch baseline (A100, seqlen 4096)</span>
+        </div>
+
+        <div class="project-card">
+          <a class="project-name-link" href="https://github.com/justbytecode" target="_blank">Speculative Decoding Inference Engine</a>
+          <div class="project-sub">OpenAI-compatible inference server · 2025</div>
+          <p class="project-desc-p">Draft-verifier runtime pairing Qwen2.5-0.5B with Qwen2.5-3B using temperature-corrected rejection sampling and adaptive gamma scheduling. Served via OpenAI-compatible FastAPI endpoint.</p>
+          <span class="project-result-tag">⚡ 2.4× mean tokens/sec on CPU · identical output distribution</span>
+        </div>
+
+        <div class="project-card">
+          <a class="project-name-link" href="https://github.com/justbytecode" target="_blank">VAANI — Offline Hindi Voice Assistant</a>
+          <div class="project-sub">Hindi-first · fully offline AI voice pipeline · 2026</div>
+          <p class="project-desc-p">openWakeWord → Whisper ASR → Qwen2.5-3B-Instruct Q4_K_M (128K context) → Piper TTS. Fine-tuned XTTS v2 on AI4Bharat Hindi corpus. 8-layer modular plugin architecture with zero cloud dependency.</p>
+          <span class="project-result-tag">⚡ &lt;800ms end-to-end latency on CPU · zero internet</span>
+        </div>
+
+        <div class="project-card">
+          <a class="project-name-link" href="https://github.com/justbytecode" target="_blank">Sparse MoE Scaling Experiment</a>
+          <div class="project-sub">Mixture-of-Experts architecture from scratch · 2026</div>
+          <p class="project-desc-p">Sparse top-k MoE (k=2, 8 experts) with z-loss load-balancing. Characterised expert utilisation collapse via routing entropy curves; identified z-loss thresholds that prevent collapse without degrading performance.</p>
+          <span class="project-result-tag">⚡ 2.3× throughput vs dense at matched FLOP budget</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="section" id="sec-experience">
+      <h2 class="section-heading">Experience</h2>
+
+      <div class="exp-entry">
+        <div class="exp-header">
+          <span class="exp-co">RecurX</span>
+          <span class="exp-date">Jan 2024 – Present</span>
+        </div>
+        <div class="exp-role">Founding Engineer &amp; Technical Lead · Delhi, India</div>
+        <ul class="exp-bullets">
+          <li>Architected cross-chain payment infrastructure across Ethereum and Solana; sub-200ms transaction latency, 95% smart contract test coverage.</li>
+          <li>Reduced p95 API latency 280ms → 182ms (35%) via Redis caching and query optimisation.</li>
+          <li>CI/CD pipeline cutting release cycles from 45 min → 8 min with zero-downtime blue-green deployments.</li>
+          <li>Horizontally-scalable microservices supporting 5,000+ concurrent WebSocket clients.</li>
+        </ul>
+      </div>
+
+      <div class="exp-entry">
+        <div class="exp-header">
+          <span class="exp-co">Independent Consultant</span>
+          <span class="exp-date">Jan 2021 – Dec 2023</span>
+        </div>
+        <div class="exp-role">Full-Stack &amp; AI Software Engineer · Remote</div>
+        <ul class="exp-bullets">
+          <li>Delivered 15+ production applications across SaaS, AI tooling, and Web3 domains.</li>
+          <li>Production RAG pipeline reducing attorney research time by 65% via hybrid BM25 + cross-encoder reranking.</li>
+          <li>Fine-tuned Mistral-7B and Llama-2 via QLoRA on AWS SageMaker; 85%+ test coverage.</li>
+          <li>Database optimisation achieving 10× query throughput on high-cardinality operations.</li>
+        </ul>
+      </div>
+
+    </section>
+
+  </main>
+</div>
 
 <script>
-function toggleLearn(id, btn) {
-  const panel = document.getElementById('panel-' + id);
-  const isOpen = panel.classList.contains('open');
-  panel.classList.toggle('open', !isOpen);
-  btn.classList.toggle('open', !isOpen);
+/* ─── SECTION NAVIGATION ─── */
+const sectionMap = {
+  home:       'sec-home',
+  research:   'sec-research',
+  projects:   'sec-projects',
+  experience: 'sec-experience',
+};
+
+const navMap = {
+  research:   'nav-research',
+  projects:   'nav-projects',
+  experience: 'nav-experience',
+};
+
+function showSection(key) {
+  // Hide all
+  Object.values(sectionMap).forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.remove('active');
+  });
+  // Remove active from all nav links
+  Object.values(navMap).forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.remove('active');
+  });
+  // Show target
+  const target = document.getElementById(sectionMap[key]);
+  if (target) target.classList.add('active');
+  // Activate nav link
+  if (navMap[key]) {
+    const navEl = document.getElementById(navMap[key]);
+    if (navEl) navEl.classList.add('active');
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function switchTab(paperId, tabId, el) {
-  // deactivate all tabs and contents for this paper
-  const panel = document.getElementById('panel-' + paperId);
-  panel.querySelectorAll('.learn-tab').forEach(t => t.classList.remove('active'));
-  panel.querySelectorAll('.learn-content').forEach(c => c.classList.remove('active'));
-  // activate selected
-  el.classList.add('active');
-  document.getElementById(paperId + '-' + tabId).classList.add('active');
+/* ─── FLOATING DOTS ─── */
+const canvas = document.getElementById('dots-canvas');
+const ctx = canvas.getContext('2d');
+
+const COLORS = [
+  'rgba(99,102,241,0.5)',   // indigo
+  'rgba(52,211,153,0.5)',   // emerald
+  'rgba(251,191,36,0.45)',  // amber
+  'rgba(96,165,250,0.5)',   // blue
+  'rgba(248,113,113,0.45)', // rose
+  'rgba(167,139,250,0.5)',  // violet
+  'rgba(34,211,238,0.45)',  // cyan
+  'rgba(74,222,128,0.45)',  // green
+];
+
+let dots = [];
+let W, H;
+
+function resize() {
+  W = canvas.width  = window.innerWidth;
+  H = canvas.height = window.innerHeight;
 }
+resize();
+window.addEventListener('resize', () => { resize(); initDots(); });
+
+function initDots() {
+  dots = [];
+  const count = Math.floor((W * H) / 28000);
+  for (let i = 0; i < count; i++) {
+    dots.push({
+      x:  Math.random() * W,
+      y:  Math.random() * H,
+      r:  2.5 + Math.random() * 4.5,
+      vx: (Math.random() - 0.5) * 0.28,
+      vy: (Math.random() - 0.5) * 0.28,
+      color: COLORS[Math.floor(Math.random() * COLORS.length)],
+      phase: Math.random() * Math.PI * 2,
+      amp:   0.3 + Math.random() * 0.5,
+    });
+  }
+}
+initDots();
+
+let t = 0;
+function animate() {
+  ctx.clearRect(0, 0, W, H);
+  t += 0.008;
+
+  dots.forEach(d => {
+    // Gentle drift + sinusoidal wobble
+    d.x += d.vx + Math.sin(t + d.phase) * d.amp * 0.04;
+    d.y += d.vy + Math.cos(t + d.phase * 0.7) * d.amp * 0.04;
+
+    // Wrap
+    if (d.x < -10) d.x = W + 10;
+    if (d.x > W + 10) d.x = -10;
+    if (d.y < -10) d.y = H + 10;
+    if (d.y > H + 10) d.y = -10;
+
+    ctx.beginPath();
+    ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+    ctx.fillStyle = d.color;
+    ctx.fill();
+  });
+
+  requestAnimationFrame(animate);
+}
+animate();
 </script>
 
 </body>
